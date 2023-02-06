@@ -9,11 +9,6 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
   RxInt milliseconds = 0.obs;
   @override
   void onInit() {
-    // animationController = AnimationController(
-    //   duration: Duration(milliseconds: 500),
-    //   vsync: this,
-    // );
-    // animationController!.repeat();
     super.onInit();
   }
 
