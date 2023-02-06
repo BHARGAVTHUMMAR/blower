@@ -1,12 +1,32 @@
+import 'dart:async';
+
+import 'package:flutter/animation.dart';
 import 'package:get/get.dart';
 
-class HomeController extends GetxController {
-  //TODO: Implement HomeController
-
-  final count = 0.obs;
+class HomeController extends GetxController with SingleGetTickerProviderMixin {
+  RxBool on_Off = false.obs;
+  AnimationController? animationController;
+  RxInt milliseconds = 0.obs;
   @override
   void onInit() {
+    // animationController = AnimationController(
+    //   duration: Duration(milliseconds: 500),
+    //   vsync: this,
+    // );
+    // animationController!.repeat();
     super.onInit();
+  }
+
+  startAnimation() {
+    animationController = AnimationController(
+      duration: Duration(milliseconds: 1000),
+      vsync: this,
+    );
+    animationController!.repeat();
+  }
+
+  desposeAnimation() {
+    animationController!.dispose();
   }
 
   @override
@@ -16,8 +36,7 @@ class HomeController extends GetxController {
 
   @override
   void onClose() {
+    animationController!.dispose();
     super.onClose();
   }
-
-  void increment() => count.value++;
 }
