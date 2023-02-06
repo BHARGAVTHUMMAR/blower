@@ -193,7 +193,7 @@ class HomeView extends GetView<HomeController> {
                                     .animate(controller.animationController!),
                                 child: Image.asset(
                                   "assets/fan.png",
-                                  height: MySize.getHeight(210),
+                                  height: MySize.getHeight(220),
                                 ),
                               ),
                             )
@@ -212,7 +212,7 @@ class HomeView extends GetView<HomeController> {
                           Positioned(
                             child: Image.asset(
                               "assets/fan.png",
-                              height: MySize.getHeight(210),
+                              height: MySize.getHeight(220),
                             ),
                           )
                         ],
