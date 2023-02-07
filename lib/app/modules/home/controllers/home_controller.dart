@@ -57,6 +57,18 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
     animationController!.repeat();
   }
 
+  desposeAnimation() {
+    frequency = 540;
+    SoundGenerator.stop();
+    animationController!.duration = Duration(seconds: 1);
+    animationController!.forward(from: 0);
+    Future.delayed(Duration(seconds: 1)).then((value) {
+      animationController!.duration = Duration(seconds: 2);
+      animationController!.forward(from: 0);
+    });
+    isAnimationInit.value = true;
+  }
+
   setDragAnimation() {
     double val = 0;
 
@@ -71,23 +83,6 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
     animationController1!.value.forward(from: val == 1 ? 0 : val);
     animationController1!.refresh();
     isAnimationInit.refresh();
-  }
-
-// add a isLocal parameter to play a local file
-
-  desposeAnimation() {
-    frequency = 540;
-    SoundGenerator.stop();
-
-    animationController!.duration = Duration(seconds: 1);
-    animationController!.forward(from: 0);
-    Future.delayed(Duration(seconds: 1)).then((value) {
-      animationController!.duration = Duration(seconds: 2);
-      animationController!.forward(from: 0);
-    });
-    isAnimationInit.value = true;
-
-    // animationController!.repeat();
   }
 
   @override
