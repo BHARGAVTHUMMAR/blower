@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 
 class HomeController extends GetxController with SingleGetTickerProviderMixin {
   RxBool on_Off = false.obs;
+  RxBool isRotate = false.obs;
   AnimationController? animationController;
   RxInt milliseconds = 0.obs;
   @override
@@ -21,7 +22,11 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
   }
 
   desposeAnimation() {
-    animationController!.dispose();
+    animationController = AnimationController(
+      duration: Duration(milliseconds: 500),
+      vsync: this,
+    );
+    animationController!.repeat();
   }
 
   @override
