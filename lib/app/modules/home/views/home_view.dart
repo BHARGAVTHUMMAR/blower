@@ -75,7 +75,8 @@ class HomeView extends GetWidget<HomeController> {
                                 child: Stack(
                                   children: [
                                     AnimatedPositioned(
-                                      right: controller.isTap.isTrue ? 0 : 210,
+                                      right:
+                                          controller.isTap.isTrue ? 0.0 : 150,
                                       duration: Duration(seconds: 3),
                                       child: CircleAvatar(
                                         radius: 10,
