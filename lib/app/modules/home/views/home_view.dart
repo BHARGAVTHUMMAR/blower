@@ -255,12 +255,36 @@ class HomeView extends GetWidget<HomeController> {
                                 "assets/fan_holder.png",
                                 height: MySize.getHeight(350),
                               ),
-                              Positioned(
-                                child: Image.asset(
-                                  "assets/fan.png",
-                                  height: MySize.getHeight(220),
-                                ),
-                              )
+                              (controller.animationController1 != null)
+                                  ? Positioned(
+                                      child: GestureDetector(
+                                        onHorizontalDragStart: (a) {
+                                          controller.setDragAnimation();
+                                          controller.update();
+                                        },
+                                        child: RotationTransition(
+                                          turns: Tween(begin: 0.0, end: 1.0)
+                                              .animate(controller
+                                                  .animationController1!.value),
+                                          child: Image.asset(
+                                            "assets/fan.png",
+                                            height: MySize.getHeight(220),
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                  : Positioned(
+                                      child: GestureDetector(
+                                        onHorizontalDragStart: (a) {
+                                          controller.setDragAnimation();
+                                          controller.update();
+                                        },
+                                        child: Image.asset(
+                                          "assets/fan.png",
+                                          height: MySize.getHeight(220),
+                                        ),
+                                      ),
+                                    )
                             ],
                           ),
                         ),

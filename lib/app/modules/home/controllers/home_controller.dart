@@ -9,6 +9,7 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
   RxBool isRotate = false.obs;
   RxBool isAnimationInit = false.obs;
   AnimationController? animationController;
+  Rx<AnimationController>? animationController1;
   RxInt milliseconds = 0.obs;
   double _volumeListenerValue = 0;
   double _getVolume = 0;
@@ -42,7 +43,9 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
   }
 
   startAnimation() {
-    VolumeController().setVolume(1);
+    if (_volumeListenerValue <= 0.2) {
+      VolumeController().setVolume(1);
+    }
     SoundGenerator.setFrequency(frequency);
 
     SoundGenerator.play();
@@ -54,11 +57,26 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
     animationController!.repeat();
   }
 
+  setDragAnimation() {
+    double val = 0;
+
+    if (animationController1 != null) {
+      val = animationController1!.value.value;
+      print(val);
+    }
+    animationController1 = AnimationController(
+      duration: Duration(milliseconds: 5000),
+      vsync: this,
+    ).obs;
+    animationController1!.value.forward(from: val == 1 ? 0 : val);
+    animationController1!.refresh();
+    isAnimationInit.refresh();
+  }
+
 // add a isLocal parameter to play a local file
 
   desposeAnimation() {
     frequency = 540;
-    VolumeController().setVolume(1);
     SoundGenerator.stop();
 
     animationController!.duration = Duration(seconds: 1);
