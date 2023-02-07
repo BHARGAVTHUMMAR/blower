@@ -75,9 +75,11 @@ class HomeView extends GetWidget<HomeController> {
                                 child: Stack(
                                   children: [
                                     AnimatedPositioned(
-                                      right:
-                                          controller.isTap.isTrue ? 0.0 : 150,
-                                      duration: Duration(seconds: 3),
+                                      right: controller.isTap.isTrue
+                                          ? MySize.getWidth(
+                                              controller.slider.value)
+                                          : MySize.getWidth(210),
+                                      duration: Duration(seconds: 5),
                                       child: CircleAvatar(
                                         radius: 10,
                                       ),
@@ -111,6 +113,7 @@ class HomeView extends GetWidget<HomeController> {
                                   } else {
                                     controller.desposeAnimation();
                                   }
+                                  controller.slider.value = 80;
                                 },
                                 child: Container(
                                   decoration: BoxDecoration(
@@ -139,6 +142,10 @@ class HomeView extends GetWidget<HomeController> {
                                     children: [
                                       GestureDetector(
                                         onTap: () {
+                                          if (controller.slider.value > 10) {
+                                            controller.slider.value =
+                                                controller.slider.value - 10;
+                                          }
                                           controller.frequency =
                                               controller.frequency + 20;
                                           SoundGenerator.setFrequency(
@@ -176,6 +183,10 @@ class HomeView extends GetWidget<HomeController> {
                                       SizedBox(height: 10),
                                       GestureDetector(
                                         onTap: () {
+                                          if (controller.slider.value < 210) {
+                                            controller.slider.value =
+                                                controller.slider.value + 10;
+                                          }
                                           controller.frequency =
                                               controller.frequency - 20;
                                           SoundGenerator.setFrequency(
