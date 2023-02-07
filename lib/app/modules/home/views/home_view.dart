@@ -1,11 +1,11 @@
-import 'package:blower/constants/sizeConstant.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
+import 'package:sound_generator/sound_generator.dart';
 
+import '../../../../constants/sizeConstant.dart';
 import '../controllers/home_controller.dart';
 
-class HomeView extends GetView<HomeController> {
+class HomeView extends GetWidget<HomeController> {
   const HomeView({Key? key}) : super(key: key);
 
   @override
@@ -85,6 +85,8 @@ class HomeView extends GetView<HomeController> {
                                     } else {
                                       controller.desposeAnimation();
                                     }
+                                  } else {
+                                    controller.desposeAnimation();
                                   }
                                 },
                                 child: Container(
@@ -112,60 +114,78 @@ class HomeView extends GetView<HomeController> {
                                   width: MySize.getWidth(100),
                                   child: Column(
                                     children: [
-                                      Container(
-                                        decoration: BoxDecoration(
-                                            color: Colors.green,
-                                            borderRadius: BorderRadius.circular(
-                                                MySize.getHeight(8))),
-                                        height: 30,
-                                        child: Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Image.asset(
-                                                "assets/up.png",
-                                                height: 10,
-                                                color: Colors.white,
-                                              ),
-                                              SizedBox(
-                                                width: MySize.getWidth(20),
-                                              ),
-                                              Text(
-                                                "Boost",
-                                                style: TextStyle(
-                                                    color: Colors.white),
-                                              ),
-                                            ]),
+                                      GestureDetector(
+                                        onTap: () {
+                                          controller.frequency =
+                                              controller.frequency + 20;
+                                          SoundGenerator.setFrequency(
+                                              controller.frequency);
+                                        },
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                              color: Colors.green,
+                                              borderRadius:
+                                                  BorderRadius.circular(
+                                                      MySize.getHeight(8))),
+                                          height: 30,
+                                          child: Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Image.asset(
+                                                  "assets/up.png",
+                                                  height: 10,
+                                                  color: Colors.white,
+                                                ),
+                                                SizedBox(
+                                                  width: MySize.getWidth(20),
+                                                ),
+                                                Text(
+                                                  "Boost",
+                                                  style: TextStyle(
+                                                      color: Colors.white),
+                                                ),
+                                              ]),
+                                        ),
                                       ),
                                       SizedBox(height: 10),
-                                      Container(
-                                        decoration: BoxDecoration(
-                                            color: Colors.red,
-                                            borderRadius: BorderRadius.circular(
-                                                MySize.getHeight(8))),
-                                        height: 30,
-                                        child: Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Image.asset(
-                                                "assets/down.png",
-                                                height: 15,
-                                                color: Colors.white,
-                                              ),
-                                              SizedBox(
-                                                width: MySize.getWidth(22),
-                                              ),
-                                              Text(
-                                                "Low",
-                                                style: TextStyle(
-                                                    color: Colors.white),
-                                              ),
-                                            ]),
+                                      GestureDetector(
+                                        onTap: () {
+                                          controller.frequency =
+                                              controller.frequency - 20;
+                                          SoundGenerator.setFrequency(
+                                              controller.frequency);
+                                        },
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                              color: Colors.red,
+                                              borderRadius:
+                                                  BorderRadius.circular(
+                                                      MySize.getHeight(8))),
+                                          height: 30,
+                                          child: Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Image.asset(
+                                                  "assets/down.png",
+                                                  height: 15,
+                                                  color: Colors.white,
+                                                ),
+                                                SizedBox(
+                                                  width: MySize.getWidth(22),
+                                                ),
+                                                Text(
+                                                  "Low",
+                                                  style: TextStyle(
+                                                      color: Colors.white),
+                                                ),
+                                              ]),
+                                        ),
                                       )
                                     ],
                                   ))
@@ -215,24 +235,47 @@ class HomeView extends GetView<HomeController> {
                         ],
                       ),
                     )
-                  : Container(
-                      height: MySize.getHeight(300),
-                      child: Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          Image.asset(
-                            "assets/fan_holder.png",
-                            height: MySize.getHeight(350),
+                  : (controller.isAnimationInit.isTrue)
+                      ? Container(
+                          height: MySize.getHeight(300),
+                          child: Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              Image.asset(
+                                "assets/fan_holder.png",
+                                height: MySize.getHeight(350),
+                              ),
+                              Positioned(
+                                child: RotationTransition(
+                                  turns: Tween(begin: 0.0, end: 1.0)
+                                      .animate(controller.animationController!),
+                                  child: Image.asset(
+                                    "assets/fan.png",
+                                    height: MySize.getHeight(220),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                          Positioned(
-                            child: Image.asset(
-                              "assets/fan.png",
-                              height: MySize.getHeight(220),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
+                        )
+                      : Container(
+                          height: MySize.getHeight(300),
+                          child: Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              Image.asset(
+                                "assets/fan_holder.png",
+                                height: MySize.getHeight(350),
+                              ),
+                              Positioned(
+                                child: Image.asset(
+                                  "assets/fan.png",
+                                  height: MySize.getHeight(220),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
             ],
           ),
         ),
