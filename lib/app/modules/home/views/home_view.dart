@@ -56,13 +56,22 @@ class HomeView extends GetWidget<HomeController> {
                         ),
                         Padding(
                           padding: EdgeInsets.only(top: MySize.getHeight(30)),
-                          child: ClipRRect(
-                            borderRadius:
-                                BorderRadius.circular(MySize.getHeight(12)),
-                            child: Image.asset(
-                              "assets/scale.png",
-                              height: MySize.getHeight(100),
-                            ),
+                          child: Stack(
+                            alignment: Alignment.bottomLeft,
+                            children: [
+                              ClipRRect(
+                                borderRadius:
+                                    BorderRadius.circular(MySize.getHeight(12)),
+                                child: Image.asset(
+                                  "assets/scale.png",
+                                  height: MySize.getHeight(100),
+                                ),
+                              ),
+                              Positioned(
+                                  child: CircleAvatar(
+                                radius: 10,
+                              )),
+                            ],
                           ),
                         ),
                         Padding(

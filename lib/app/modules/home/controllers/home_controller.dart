@@ -58,8 +58,8 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
   }
 
   desposeAnimation() {
-    frequency = 540;
     SoundGenerator.stop();
+    frequency = 540;
     animationController!.duration = Duration(seconds: 1);
     animationController!.forward(from: 0);
     Future.delayed(Duration(seconds: 1)).then((value) {
@@ -71,7 +71,6 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
 
   setDragAnimation() {
     double val = 0;
-
     if (animationController1 != null) {
       val = animationController1!.value.value;
       print(val);
