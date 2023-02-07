@@ -78,10 +78,12 @@ class HomeView extends GetWidget<HomeController> {
                                       right: controller.isTap.isTrue
                                           ? MySize.getWidth(
                                               controller.slider.value)
-                                          : MySize.getWidth(210),
+                                          : MySize.getWidth(200),
                                       duration: Duration(seconds: 5),
-                                      child: CircleAvatar(
-                                        radius: 10,
+                                      child: Image.asset(
+                                        "assets/triangle.png",
+                                        height: 20,
+                                        width: 30,
                                       ),
                                     ),
                                   ],
@@ -142,7 +144,7 @@ class HomeView extends GetWidget<HomeController> {
                                     children: [
                                       GestureDetector(
                                         onTap: () {
-                                          if (controller.slider.value > 10) {
+                                          if (controller.slider.value > 0) {
                                             controller.slider.value =
                                                 controller.slider.value - 10;
                                           }
@@ -183,7 +185,7 @@ class HomeView extends GetWidget<HomeController> {
                                       SizedBox(height: 10),
                                       GestureDetector(
                                         onTap: () {
-                                          if (controller.slider.value < 210) {
+                                          if (controller.slider.value < 200) {
                                             controller.slider.value =
                                                 controller.slider.value + 10;
                                           }
