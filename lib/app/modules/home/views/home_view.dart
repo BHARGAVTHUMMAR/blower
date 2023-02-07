@@ -82,8 +82,6 @@ class HomeView extends GetWidget<HomeController> {
                                   if (controller.on_Off.isTrue) {
                                     if (controller.isRotate.isTrue) {
                                       controller.startAnimation();
-                                    } else {
-                                      controller.desposeAnimation();
                                     }
                                   } else {
                                     controller.desposeAnimation();
@@ -211,27 +209,17 @@ class HomeView extends GetWidget<HomeController> {
                                   "assets/fan_holder.png",
                                   height: MySize.getHeight(350),
                                 ),
-                          (controller.isRotate.isTrue)
-                              ? Positioned(
-                                  child: RotationTransition(
-                                    turns: Tween(begin: 0.0, end: 1.0).animate(
-                                        controller.animationController!),
-                                    child: Image.asset(
-                                      "assets/fan.png",
-                                      height: MySize.getHeight(220),
-                                    ),
-                                  ),
-                                )
-                              : Positioned(
-                                  child: RotationTransition(
-                                    turns: Tween(begin: 0.0, end: 1.0).animate(
-                                        controller.animationController!),
-                                    child: Image.asset(
-                                      "assets/fan.png",
-                                      height: MySize.getHeight(220),
-                                    ),
-                                  ),
-                                )
+                          if (controller.isRotate.isTrue)
+                            Positioned(
+                              child: RotationTransition(
+                                turns: Tween(begin: 0.0, end: 1.0)
+                                    .animate(controller.animationController!),
+                                child: Image.asset(
+                                  "assets/fan.png",
+                                  height: MySize.getHeight(220),
+                                ),
+                              ),
+                            )
                         ],
                       ),
                     )

@@ -9,7 +9,6 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
   RxBool isRotate = false.obs;
   RxBool isAnimationInit = false.obs;
   AnimationController? animationController;
-  AnimationController? animationController1;
   RxInt milliseconds = 0.obs;
   double _volumeListenerValue = 0;
   double _getVolume = 0;
@@ -30,12 +29,6 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
 
     SoundGenerator.onIsPlayingChanged.listen((value) {
       isPlaying = value;
-    });
-
-    SoundGenerator.onOneCycleDataHandler.listen((value) {
-      // setState(() {
-      //   oneCycleData = value;
-      // });
     });
 
     SoundGenerator.setAutoUpdateOneCycleSample(true);
