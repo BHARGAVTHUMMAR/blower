@@ -7,6 +7,7 @@ import 'package:volume_controller/volume_controller.dart';
 class HomeController extends GetxController with SingleGetTickerProviderMixin {
   RxBool on_Off = false.obs;
   RxBool isRotate = false.obs;
+  RxBool isTap = false.obs;
   RxBool isAnimationInit = false.obs;
   AnimationController? animationController;
   Rx<AnimationController>? animationController1;

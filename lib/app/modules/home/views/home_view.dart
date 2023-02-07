@@ -59,18 +59,31 @@ class HomeView extends GetWidget<HomeController> {
                           child: Stack(
                             alignment: Alignment.bottomLeft,
                             children: [
-                              ClipRRect(
-                                borderRadius:
-                                    BorderRadius.circular(MySize.getHeight(12)),
-                                child: Image.asset(
-                                  "assets/scale.png",
-                                  height: MySize.getHeight(100),
+                              Container(
+                                height: MySize.getHeight(100),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(
+                                      MySize.getHeight(12)),
+                                  child: Image.asset(
+                                    "assets/scale.png",
+                                  ),
                                 ),
                               ),
-                              Positioned(
-                                  child: CircleAvatar(
-                                radius: 10,
-                              )),
+                              Container(
+                                width: MySize.getWidth(230),
+                                height: MySize.getHeight(20),
+                                child: Stack(
+                                  children: [
+                                    AnimatedPositioned(
+                                      right: controller.isTap.isTrue ? 0 : 210,
+                                      duration: Duration(seconds: 3),
+                                      child: CircleAvatar(
+                                        radius: 10,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -85,6 +98,8 @@ class HomeView extends GetWidget<HomeController> {
                                 onTap: () {
                                   controller.on_Off.value =
                                       !controller.on_Off.value;
+                                  controller.isTap.value =
+                                      !controller.isTap.value;
                                   if (controller.on_Off.isTrue) {
                                     controller.isRotate.value = true;
                                   }
