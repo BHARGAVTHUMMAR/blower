@@ -11,7 +11,7 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
   RxBool isAnimationInit = false.obs;
   AnimationController? animationController;
   Rx<AnimationController>? animationController1;
-  RxDouble slider = 80.0.obs;
+  RxDouble slider = 75.0.obs;
   RxInt milliseconds = 0.obs;
   double _volumeListenerValue = 0;
   double _getVolume = 0;

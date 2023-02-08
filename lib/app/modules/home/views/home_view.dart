@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sound_generator/sound_generator.dart';
+import 'package:syncfusion_flutter_gauges/gauges.dart';
 
 import '../../../../constants/sizeConstant.dart';
 import '../controllers/home_controller.dart';
@@ -25,7 +26,7 @@ class HomeView extends GetWidget<HomeController> {
                       color: Colors.grey.shade900,
                       borderRadius:
                           BorderRadius.circular(MySize.getHeight(12))),
-                  height: MySize.getHeight(400),
+                  height: MySize.getHeight(450),
                   width: MySize.getWidth(400),
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -43,7 +44,7 @@ class HomeView extends GetWidget<HomeController> {
                                           fontWeight: FontWeight.w400,
                                           fontSize: MySize.getHeight(25)))),
                               SizedBox(
-                                width: 50,
+                                width: 30,
                               ),
                               Padding(
                                 padding:
@@ -56,83 +57,239 @@ class HomeView extends GetWidget<HomeController> {
                             ],
                           ),
                         ),
-                        Padding(
-                          padding: EdgeInsets.only(top: MySize.getHeight(30)),
-                          child: Stack(
-                            alignment: Alignment.bottomLeft,
-                            children: [
-                              Container(
-                                height: MySize.getHeight(120),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(
-                                      MySize.getHeight(12)),
-                                  child: Image.asset(
-                                    "assets/scale.png",
+                        Stack(
+                          alignment: Alignment.bottomCenter,
+                          children: [
+                            Container(
+                              height: MySize.getHeight(300),
+                              width: MySize.getWidth(400),
+                              child: SfRadialGauge(
+                                enableLoadingAnimation: false,
+                                axes: <RadialAxis>[
+                                  RadialAxis(
+                                      minimum: 0,
+                                      maximum: 150,
+                                      interval: 20,
+                                      minorTicksPerInterval: 9,
+                                      showAxisLine: false,
+                                      showTicks: false,
+                                      showLabels: false,
+                                      radiusFactor: 0.8,
+                                      labelOffset: 8,
+                                      ranges: <GaugeRange>[
+                                        GaugeRange(
+                                            startValue: 0,
+                                            endValue: 30,
+                                            startWidth: 0.265,
+                                            sizeUnit: GaugeSizeUnit.factor,
+                                            endWidth: 0.265,
+                                            color: const Color.fromRGBO(
+                                                52, 193, 119, 1)),
+                                        GaugeRange(
+                                            startValue: 30,
+                                            endValue: 60,
+                                            startWidth: 0.265,
+                                            sizeUnit: GaugeSizeUnit.factor,
+                                            endWidth: 0.265,
+                                            color: const Color.fromRGBO(
+                                                37, 160, 139, 1)),
+                                        GaugeRange(
+                                            startValue: 60,
+                                            endValue: 90,
+                                            startWidth: 0.265,
+                                            sizeUnit: GaugeSizeUnit.factor,
+                                            endWidth: 0.265,
+                                            color: const Color.fromRGBO(
+                                                253, 197, 10, 1)),
+                                        GaugeRange(
+                                            startValue: 90,
+                                            endValue: 120,
+                                            startWidth: 0.265,
+                                            sizeUnit: GaugeSizeUnit.factor,
+                                            endWidth: 0.265,
+                                            color: const Color.fromRGBO(
+                                                250, 112, 78, 1)),
+                                        GaugeRange(
+                                            startValue: 120,
+                                            endValue: 150,
+                                            startWidth: 0.265,
+                                            sizeUnit: GaugeSizeUnit.factor,
+                                            endWidth: 0.265,
+                                            color: const Color.fromRGBO(
+                                                217, 53, 81, 1)),
+                                      ],
+                                      pointers: <GaugePointer>[
+                                        NeedlePointer(
+                                          value: (controller.on_Off.isTrue)
+                                              ? controller.slider.value
+                                              : 0,
+                                          needleStartWidth: 0,
+                                          needleEndWidth: 5,
+                                          animationType:
+                                              AnimationType.easeOutBack,
+                                          enableAnimation: true,
+                                          animationDuration: 3000,
+                                          knobStyle: KnobStyle(
+                                              knobRadius: 0.06,
+                                              borderColor: Color(0xFFFF2E2E),
+                                              color: Colors.white,
+                                              borderWidth: 0.035),
+                                          tailStyle: TailStyle(
+                                              color: Color(0xFFFF2E2E),
+                                              width: 4,
+                                              length: 0.15),
+                                          needleColor: Color(0xFFFF2E2E),
+                                        )
+                                      ],
+                                      axisLabelStyle:
+                                          GaugeTextStyle(fontSize: 10),
+                                      majorTickStyle: const MajorTickStyle(
+                                          length: 0.25,
+                                          lengthUnit: GaugeSizeUnit.factor),
+                                      minorTickStyle: const MinorTickStyle(
+                                          length: 0.13,
+                                          lengthUnit: GaugeSizeUnit.factor,
+                                          thickness: 1))
+                                ],
+                              ),
+                            ),
+                            Container(
+                              height: MySize.getHeight(300),
+                              width: MySize.getWidth(400),
+                              child: SfRadialGauge(
+                                enableLoadingAnimation: false,
+                                axes: <RadialAxis>[
+                                  RadialAxis(
+                                      minimum: 0,
+                                      maximum: 150,
+                                      interval: 20,
+                                      minorTicksPerInterval: 9,
+                                      showAxisLine: false,
+                                      showTicks: false,
+                                      showLabels: false,
+                                      radiusFactor: 0.8,
+                                      labelOffset: 8,
+                                      ranges: <GaugeRange>[
+                                        GaugeRange(
+                                            startValue: 0,
+                                            endValue: 30,
+                                            startWidth: 0.265,
+                                            sizeUnit: GaugeSizeUnit.factor,
+                                            endWidth: 0.265,
+                                            color: const Color.fromRGBO(
+                                                52, 193, 119, 1)),
+                                        GaugeRange(
+                                            startValue: 30,
+                                            endValue: 60,
+                                            startWidth: 0.265,
+                                            sizeUnit: GaugeSizeUnit.factor,
+                                            endWidth: 0.265,
+                                            color: const Color.fromRGBO(
+                                                37, 160, 139, 1)),
+                                        GaugeRange(
+                                            startValue: 60,
+                                            endValue: 90,
+                                            startWidth: 0.265,
+                                            sizeUnit: GaugeSizeUnit.factor,
+                                            endWidth: 0.265,
+                                            color: const Color.fromRGBO(
+                                                253, 197, 10, 1)),
+                                        GaugeRange(
+                                            startValue: 90,
+                                            endValue: 120,
+                                            startWidth: 0.265,
+                                            sizeUnit: GaugeSizeUnit.factor,
+                                            endWidth: 0.265,
+                                            color: const Color.fromRGBO(
+                                                250, 112, 78, 1)),
+                                        GaugeRange(
+                                            startValue: 120,
+                                            endValue: 150,
+                                            startWidth: 0.265,
+                                            sizeUnit: GaugeSizeUnit.factor,
+                                            endWidth: 0.265,
+                                            color: const Color.fromRGBO(
+                                                217, 53, 81, 1)),
+                                      ],
+                                      pointers: <GaugePointer>[
+                                        NeedlePointer(
+                                          value: (controller.on_Off.isTrue)
+                                              ? controller.slider.value
+                                              : 0,
+                                          needleStartWidth: 0,
+                                          needleEndWidth: 5,
+                                          animationType:
+                                              AnimationType.easeOutBack,
+                                          enableAnimation: true,
+                                          animationDuration: 3000,
+                                          knobStyle: KnobStyle(
+                                              knobRadius: 0.06,
+                                              borderColor: Color(0xFFFF2E2E),
+                                              color: Colors.white,
+                                              borderWidth: 0.035),
+                                          tailStyle: TailStyle(
+                                              color: Color(0xFFFF2E2E),
+                                              width: 4,
+                                              length: 0.15),
+                                          needleColor: Color(0xFFFF2E2E),
+                                        )
+                                      ],
+                                      axisLabelStyle:
+                                          GaugeTextStyle(fontSize: 10),
+                                      majorTickStyle: const MajorTickStyle(
+                                          length: 0.25,
+                                          lengthUnit: GaugeSizeUnit.factor),
+                                      minorTickStyle: const MinorTickStyle(
+                                          length: 0.13,
+                                          lengthUnit: GaugeSizeUnit.factor,
+                                          thickness: 1))
+                                ],
+                              ),
+                            ),
+                            Positioned(
+                              child: GestureDetector(
+                                onTap: () {
+                                  controller.on_Off.value =
+                                      !controller.on_Off.value;
+                                  controller.isTap.value =
+                                      !controller.isTap.value;
+                                  if (controller.on_Off.isTrue) {
+                                    controller.isRotate.value = true;
+                                  }
+                                  if (controller.on_Off.isTrue) {
+                                    if (controller.isRotate.isTrue) {
+                                      controller.startAnimation();
+                                    }
+                                  } else {
+                                    controller.desposeAnimation();
+                                  }
+                                  controller.slider.value = 75;
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(60),
+                                      border: Border.all(
+                                          color: Colors.grey.shade50)),
+                                  child: CircleAvatar(
+                                    backgroundColor: Colors.transparent,
+                                    radius: MySize.getHeight(35),
+                                    child: Padding(
+                                      padding:
+                                          EdgeInsets.all(MySize.getHeight(3)),
+                                      child: (controller.on_Off.isFalse)
+                                          ? Image.asset(
+                                              "assets/switch_green.png")
+                                          : Image.asset(
+                                              "assets/switch_red.png"),
+                                    ),
                                   ),
                                 ),
                               ),
-                              Container(
-                                width: MySize.getWidth(275),
-                                height: MySize.getHeight(30),
-                                child: Stack(
-                                  children: [
-                                    AnimatedPositioned(
-                                      right: controller.isTap.isTrue
-                                          ? MySize.getWidth(
-                                              controller.slider.value)
-                                          : MySize.getWidth(240),
-                                      duration: Duration(seconds: 3),
-                                      child: Image.asset(
-                                        "assets/triangle.png",
-                                        height: 30,
-                                        width: 30,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
+                            )
+                          ],
                         ),
                         Column(
                           children: [
-                            SizedBox(height: MySize.getHeight(30)),
-                            GestureDetector(
-                              onTap: () {
-                                controller.on_Off.value =
-                                    !controller.on_Off.value;
-                                controller.isTap.value =
-                                    !controller.isTap.value;
-                                if (controller.on_Off.isTrue) {
-                                  controller.isRotate.value = true;
-                                }
-                                if (controller.on_Off.isTrue) {
-                                  if (controller.isRotate.isTrue) {
-                                    controller.startAnimation();
-                                  }
-                                } else {
-                                  controller.desposeAnimation();
-                                }
-                                controller.slider.value = 80;
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(60),
-                                    border:
-                                        Border.all(color: Colors.grey.shade50)),
-                                child: CircleAvatar(
-                                  backgroundColor: Colors.transparent,
-                                  radius: MySize.getHeight(35),
-                                  child: Padding(
-                                    padding:
-                                        EdgeInsets.all(MySize.getHeight(3)),
-                                    child: (controller.on_Off.isFalse)
-                                        ? Image.asset("assets/switch_green.png")
-                                        : Image.asset("assets/switch_red.png"),
-                                  ),
-                                ),
-                              ),
-                            ),
                             SizedBox(
                               height: MySize.getHeight(30),
                             ),
@@ -141,9 +298,9 @@ class HomeView extends GetWidget<HomeController> {
                               children: [
                                 GestureDetector(
                                   onTap: () {
-                                    if (controller.slider.value > 10) {
+                                    if (controller.slider.value < 150) {
                                       controller.slider.value =
-                                          controller.slider.value - 10;
+                                          controller.slider.value + 5;
                                     }
                                     controller.frequency =
                                         controller.frequency + 20;
@@ -171,9 +328,9 @@ class HomeView extends GetWidget<HomeController> {
                                 SizedBox(width: 25),
                                 GestureDetector(
                                   onTap: () {
-                                    if (controller.slider.value < 240) {
+                                    if (controller.slider.value > 0) {
                                       controller.slider.value =
-                                          controller.slider.value + 10;
+                                          controller.slider.value + 5;
                                     }
                                     controller.frequency =
                                         controller.frequency - 20;

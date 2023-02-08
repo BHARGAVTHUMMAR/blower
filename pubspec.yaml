@@ -13,6 +13,7 @@ dependencies:
   volume_controller: ^2.0.6
   audioplayers: ^3.0.1
   google_fonts: ^4.0.3
+  syncfusion_flutter_gauges: ^20.4.49
   sound_generator: ^0.0.9
 
 dev_dependencies: 
