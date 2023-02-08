@@ -65,7 +65,7 @@ class HomeView extends GetWidget<HomeController> {
                                           ? MySize.getWidth(
                                               controller.slider.value)
                                           : MySize.getWidth(240),
-                                      duration: Duration(seconds: 5),
+                                      duration: Duration(seconds: 3),
                                       child: Image.asset(
                                         "assets/triangle.png",
                                         height: 30,
