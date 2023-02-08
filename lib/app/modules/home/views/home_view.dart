@@ -56,21 +56,20 @@ class HomeView extends GetWidget<HomeController> {
                                 ),
                               ),
                               Container(
-                                // color: Colors.green,
                                 width: MySize.getWidth(275),
-                                height: MySize.getHeight(20),
+                                height: MySize.getHeight(30),
                                 child: Stack(
                                   children: [
                                     AnimatedPositioned(
                                       right: controller.isTap.isTrue
                                           ? MySize.getWidth(
                                               controller.slider.value)
-                                          : MySize.getWidth(230),
+                                          : MySize.getWidth(240),
                                       duration: Duration(seconds: 5),
                                       child: Image.asset(
                                         "assets/triangle.png",
-                                        height: 40,
-                                        width: 50,
+                                        height: 30,
+                                        width: 30,
                                       ),
                                     ),
                                   ],
@@ -81,7 +80,7 @@ class HomeView extends GetWidget<HomeController> {
                         ),
                         Column(
                           children: [
-                            SizedBox(height: MySize.getHeight(20)),
+                            SizedBox(height: MySize.getHeight(30)),
                             GestureDetector(
                               onTap: () {
                                 controller.on_Off.value =
@@ -119,14 +118,14 @@ class HomeView extends GetWidget<HomeController> {
                               ),
                             ),
                             SizedBox(
-                              height: MySize.getHeight(20),
+                              height: MySize.getHeight(30),
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 GestureDetector(
                                   onTap: () {
-                                    if (controller.slider.value > 0) {
+                                    if (controller.slider.value > 10) {
                                       controller.slider.value =
                                           controller.slider.value - 10;
                                     }
@@ -156,7 +155,7 @@ class HomeView extends GetWidget<HomeController> {
                                 SizedBox(width: 25),
                                 GestureDetector(
                                   onTap: () {
-                                    if (controller.slider.value < 230) {
+                                    if (controller.slider.value < 240) {
                                       controller.slider.value =
                                           controller.slider.value + 10;
                                     }
