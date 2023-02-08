@@ -24,35 +24,21 @@ class HomeView extends GetWidget<HomeController> {
                       color: Colors.grey.shade900,
                       borderRadius:
                           BorderRadius.circular(MySize.getHeight(12))),
-                  height: MySize.getHeight(300),
+                  height: MySize.getHeight(400),
+                  width: MySize.getWidth(400),
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Padding(
                           padding: EdgeInsets.only(
-                              right: MySize.getWidth(8),
-                              left: MySize.getWidth(8),
+                              // right: MySize.getWidth(8),
+                              // left: MySize.getWidth(8),
                               top: MySize.getHeight(15)),
-                          child: Row(
-                            children: [
-                              Icon(
-                                Icons.share,
-                                color: Colors.grey,
-                                size: MySize.getHeight(30),
-                              ),
-                              Spacer(),
-                              Text("Candle Blower",
-                                  style: TextStyle(
-                                      color: Colors.grey.shade50,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: MySize.getHeight(30))),
-                              Spacer(),
-                              Image.asset(
-                                "assets/no-ads.png",
-                                height: MySize.getHeight(30),
-                              ),
-                            ],
-                          ),
+                          child: Text("Candle Blower",
+                              style: TextStyle(
+                                  color: Colors.grey.shade50,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: MySize.getHeight(30))),
                         ),
                         Padding(
                           padding: EdgeInsets.only(top: MySize.getHeight(30)),
@@ -60,7 +46,7 @@ class HomeView extends GetWidget<HomeController> {
                             alignment: Alignment.bottomLeft,
                             children: [
                               Container(
-                                height: MySize.getHeight(100),
+                                height: MySize.getHeight(120),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(
                                       MySize.getHeight(12)),
@@ -70,7 +56,8 @@ class HomeView extends GetWidget<HomeController> {
                                 ),
                               ),
                               Container(
-                                width: MySize.getWidth(230),
+                                // color: Colors.green,
+                                width: MySize.getWidth(275),
                                 height: MySize.getHeight(20),
                                 child: Stack(
                                   children: [
@@ -78,12 +65,12 @@ class HomeView extends GetWidget<HomeController> {
                                       right: controller.isTap.isTrue
                                           ? MySize.getWidth(
                                               controller.slider.value)
-                                          : MySize.getWidth(200),
+                                          : MySize.getWidth(230),
                                       duration: Duration(seconds: 5),
                                       child: Image.asset(
                                         "assets/triangle.png",
-                                        height: 20,
-                                        width: 30,
+                                        height: 40,
+                                        width: 50,
                                       ),
                                     ),
                                   ],
@@ -92,141 +79,113 @@ class HomeView extends GetWidget<HomeController> {
                             ],
                           ),
                         ),
-                        Padding(
-                          padding: EdgeInsets.only(
-                              right: MySize.getWidth(70),
-                              top: MySize.getHeight(30),
-                              left: MySize.getWidth(70)),
-                          child: Row(
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  controller.on_Off.value =
-                                      !controller.on_Off.value;
-                                  controller.isTap.value =
-                                      !controller.isTap.value;
-                                  if (controller.on_Off.isTrue) {
-                                    controller.isRotate.value = true;
+                        Column(
+                          children: [
+                            SizedBox(height: MySize.getHeight(20)),
+                            GestureDetector(
+                              onTap: () {
+                                controller.on_Off.value =
+                                    !controller.on_Off.value;
+                                controller.isTap.value =
+                                    !controller.isTap.value;
+                                if (controller.on_Off.isTrue) {
+                                  controller.isRotate.value = true;
+                                }
+                                if (controller.on_Off.isTrue) {
+                                  if (controller.isRotate.isTrue) {
+                                    controller.startAnimation();
                                   }
-                                  if (controller.on_Off.isTrue) {
-                                    if (controller.isRotate.isTrue) {
-                                      controller.startAnimation();
-                                    }
-                                  } else {
-                                    controller.desposeAnimation();
-                                  }
-                                  controller.slider.value = 80;
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(60),
-                                      border: Border.all(
-                                          color: Colors.grey.shade50)),
-                                  child: CircleAvatar(
-                                    backgroundColor: Colors.transparent,
-                                    radius: MySize.getHeight(35),
-                                    child: Padding(
-                                      padding:
-                                          EdgeInsets.all(MySize.getHeight(3)),
-                                      child: (controller.on_Off.isFalse)
-                                          ? Image.asset(
-                                              "assets/switch_green.png")
-                                          : Image.asset(
-                                              "assets/switch_red.png"),
-                                    ),
+                                } else {
+                                  controller.desposeAnimation();
+                                }
+                                controller.slider.value = 80;
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(60),
+                                    border:
+                                        Border.all(color: Colors.grey.shade50)),
+                                child: CircleAvatar(
+                                  backgroundColor: Colors.transparent,
+                                  radius: MySize.getHeight(35),
+                                  child: Padding(
+                                    padding:
+                                        EdgeInsets.all(MySize.getHeight(3)),
+                                    child: (controller.on_Off.isFalse)
+                                        ? Image.asset("assets/switch_green.png")
+                                        : Image.asset("assets/switch_red.png"),
                                   ),
                                 ),
                               ),
-                              Spacer(),
-                              Container(
-                                  width: MySize.getWidth(100),
-                                  child: Column(
-                                    children: [
-                                      GestureDetector(
-                                        onTap: () {
-                                          if (controller.slider.value > 0) {
-                                            controller.slider.value =
-                                                controller.slider.value - 10;
-                                          }
-                                          controller.frequency =
-                                              controller.frequency + 20;
-                                          SoundGenerator.setFrequency(
-                                              controller.frequency);
-                                        },
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                              color: Colors.green,
-                                              borderRadius:
-                                                  BorderRadius.circular(
-                                                      MySize.getHeight(8))),
-                                          height: 30,
-                                          child: Row(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Image.asset(
-                                                  "assets/up.png",
-                                                  height: 10,
-                                                  color: Colors.white,
-                                                ),
-                                                SizedBox(
-                                                  width: MySize.getWidth(20),
-                                                ),
-                                                Text(
-                                                  "Boost",
-                                                  style: TextStyle(
-                                                      color: Colors.white),
-                                                ),
-                                              ]),
-                                        ),
+                            ),
+                            SizedBox(
+                              height: MySize.getHeight(20),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    if (controller.slider.value > 0) {
+                                      controller.slider.value =
+                                          controller.slider.value - 10;
+                                    }
+                                    controller.frequency =
+                                        controller.frequency + 20;
+                                    SoundGenerator.setFrequency(
+                                        controller.frequency);
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                        color: Colors.green,
+                                        borderRadius: BorderRadius.circular(
+                                            MySize.getHeight(62))),
+                                    height: MySize.getHeight(46),
+                                    width: MySize.getWidth(140),
+                                    child: Center(
+                                      child: Text(
+                                        "Boost",
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: MySize.getHeight(20)),
                                       ),
-                                      SizedBox(height: 10),
-                                      GestureDetector(
-                                        onTap: () {
-                                          if (controller.slider.value < 200) {
-                                            controller.slider.value =
-                                                controller.slider.value + 10;
-                                          }
-                                          controller.frequency =
-                                              controller.frequency - 20;
-                                          SoundGenerator.setFrequency(
-                                              controller.frequency);
-                                        },
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                              color: Colors.red,
-                                              borderRadius:
-                                                  BorderRadius.circular(
-                                                      MySize.getHeight(8))),
-                                          height: 30,
-                                          child: Row(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Image.asset(
-                                                  "assets/down.png",
-                                                  height: 15,
-                                                  color: Colors.white,
-                                                ),
-                                                SizedBox(
-                                                  width: MySize.getWidth(22),
-                                                ),
-                                                Text(
-                                                  "Low",
-                                                  style: TextStyle(
-                                                      color: Colors.white),
-                                                ),
-                                              ]),
-                                        ),
-                                      )
-                                    ],
-                                  ))
-                            ],
-                          ),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(width: 25),
+                                GestureDetector(
+                                  onTap: () {
+                                    if (controller.slider.value < 230) {
+                                      controller.slider.value =
+                                          controller.slider.value + 10;
+                                    }
+                                    controller.frequency =
+                                        controller.frequency - 20;
+                                    SoundGenerator.setFrequency(
+                                        controller.frequency);
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                        color: Colors.red,
+                                        borderRadius: BorderRadius.circular(
+                                            MySize.getHeight(62))),
+                                    height: MySize.getHeight(46),
+                                    width: MySize.getWidth(140),
+                                    child: Center(
+                                      child: Text(
+                                        "Low",
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: MySize.getHeight(20)),
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              ],
+                            )
+                          ],
                         ),
                       ]),
                 ),
@@ -253,7 +212,7 @@ class HomeView extends GetWidget<HomeController> {
                                 turns: Tween(begin: 0.0, end: 1.0)
                                     .animate(controller.animationController!),
                                 child: Image.asset(
-                                  "assets/fan.png",
+                                  "assets/fan1.png",
                                   height: MySize.getHeight(220),
                                 ),
                               ),
@@ -276,7 +235,7 @@ class HomeView extends GetWidget<HomeController> {
                                   turns: Tween(begin: 0.0, end: 1.0)
                                       .animate(controller.animationController!),
                                   child: Image.asset(
-                                    "assets/fan.png",
+                                    "assets/fan1.png",
                                     height: MySize.getHeight(220),
                                   ),
                                 ),
@@ -305,7 +264,7 @@ class HomeView extends GetWidget<HomeController> {
                                               .animate(controller
                                                   .animationController1!.value),
                                           child: Image.asset(
-                                            "assets/fan.png",
+                                            "assets/fan1.png",
                                             height: MySize.getHeight(220),
                                           ),
                                         ),
@@ -318,7 +277,7 @@ class HomeView extends GetWidget<HomeController> {
                                           controller.update();
                                         },
                                         child: Image.asset(
-                                          "assets/fan.png",
+                                          "assets/fan1.png",
                                           height: MySize.getHeight(220),
                                         ),
                                       ),
