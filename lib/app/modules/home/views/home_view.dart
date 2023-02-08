@@ -31,16 +31,30 @@ class HomeView extends GetWidget<HomeController> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Padding(
-                          padding: EdgeInsets.only(
-                              // right: MySize.getWidth(8),
-                              // left: MySize.getWidth(8),
-                              top: MySize.getHeight(15)),
-                          child: Text("Candle Blower",
-                              style: GoogleFonts.lemon(
-                                  textStyle: TextStyle(
-                                      color: Colors.grey.shade50,
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: MySize.getHeight(25)))),
+                          padding: EdgeInsets.only(top: MySize.getHeight(15)),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Spacer(),
+                              Text("Candle Blower",
+                                  style: GoogleFonts.lemon(
+                                      textStyle: TextStyle(
+                                          color: Colors.grey.shade50,
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: MySize.getHeight(25)))),
+                              SizedBox(
+                                width: 50,
+                              ),
+                              Padding(
+                                padding:
+                                    EdgeInsets.only(right: MySize.getWidth(20)),
+                                child: Image.asset(
+                                  "assets/share.png",
+                                  height: 20,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                         Padding(
                           padding: EdgeInsets.only(top: MySize.getHeight(30)),
