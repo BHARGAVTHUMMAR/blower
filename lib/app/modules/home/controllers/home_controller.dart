@@ -78,7 +78,7 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
       print(val);
     }
     animationController1 = AnimationController(
-      duration: Duration(milliseconds: 4000),
+      duration: Duration(milliseconds: 3000),
       vsync: this,
     ).obs;
     animationController1!.value.forward(from: val == 1 ? 0 : val);

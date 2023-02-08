@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:sound_generator/sound_generator.dart';
 
 import '../../../../constants/sizeConstant.dart';
@@ -35,10 +36,11 @@ class HomeView extends GetWidget<HomeController> {
                               // left: MySize.getWidth(8),
                               top: MySize.getHeight(15)),
                           child: Text("Candle Blower",
-                              style: TextStyle(
-                                  color: Colors.grey.shade50,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: MySize.getHeight(30))),
+                              style: GoogleFonts.lemon(
+                                  textStyle: TextStyle(
+                                      color: Colors.grey.shade50,
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: MySize.getHeight(25)))),
                         ),
                         Padding(
                           padding: EdgeInsets.only(top: MySize.getHeight(30)),
