@@ -303,7 +303,7 @@ class HomeView extends GetWidget<HomeController> {
                                           controller.slider.value + 5;
                                     }
                                     controller.frequency =
-                                        controller.frequency + 20;
+                                        controller.frequency + 30;
                                     SoundGenerator.setFrequency(
                                         controller.frequency);
                                   },
@@ -333,7 +333,7 @@ class HomeView extends GetWidget<HomeController> {
                                           controller.slider.value - 5;
                                     }
                                     controller.frequency =
-                                        controller.frequency - 20;
+                                        controller.frequency - 30;
                                     SoundGenerator.setFrequency(
                                         controller.frequency);
                                   },
