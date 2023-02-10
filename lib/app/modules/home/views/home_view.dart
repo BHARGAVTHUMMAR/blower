@@ -300,10 +300,14 @@ class HomeView extends GetWidget<HomeController> {
                                   onTap: () {
                                     if (controller.slider.value < 150) {
                                       controller.slider.value =
-                                          controller.slider.value + 5;
-                                    }
+                                          controller.slider.value + 3;
                                     controller.frequency =
                                         controller.frequency + 30;
+                                    }
+                                    if(controller.speed.value<2000){
+                                      controller.speed.value -=100;
+                                      controller.animationController!.duration = Duration(milliseconds: controller.speed.value);
+                                    }
                                     SoundGenerator.setFrequency(
                                         controller.frequency);
                                   },
@@ -330,10 +334,15 @@ class HomeView extends GetWidget<HomeController> {
                                   onTap: () {
                                     if (controller.slider.value > 0) {
                                       controller.slider.value =
-                                          controller.slider.value - 5;
-                                    }
+                                          controller.slider.value - 3;
                                     controller.frequency =
                                         controller.frequency - 30;
+                                    }
+                                    if(controller.speed.value>0){
+
+                                      controller.speed.value +=100;
+                                      controller.animationController!.duration = Duration(milliseconds: controller.speed.value);
+                                    }
                                     SoundGenerator.setFrequency(
                                         controller.frequency);
                                   },
