@@ -22,7 +22,6 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
   double volume = 1;
   waveTypes waveType = waveTypes.SINUSOIDAL;
   int sampleRate = 44100;
-  RxInt speed = 1000.obs;
 
   @override
   void onInit() {
