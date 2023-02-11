@@ -300,7 +300,7 @@ class HomeView extends GetWidget<HomeController> {
                                   onTap: () {
                                     if (controller.slider.value > 0) {
                                       controller.slider.value =
-                                          controller.slider.value - 7;
+                                          controller.slider.value - 3;
                                     controller.frequency =
                                         controller.frequency - 30;
                                     }
@@ -330,7 +330,7 @@ class HomeView extends GetWidget<HomeController> {
                                   onTap: () {
                                     if (controller.slider.value < 150) {
                                       controller.slider.value =
-                                          controller.slider.value + 7;
+                                          controller.slider.value + 3;
                                     controller.frequency =
                                         controller.frequency + 30;
                                     }
