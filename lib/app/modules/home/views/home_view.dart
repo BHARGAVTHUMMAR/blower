@@ -298,9 +298,39 @@ class HomeView extends GetWidget<HomeController> {
                               children: [
                                 GestureDetector(
                                   onTap: () {
+                                    if (controller.slider.value > 0) {
+                                      controller.slider.value =
+                                          controller.slider.value - 7;
+                                    controller.frequency =
+                                        controller.frequency - 30;
+                                    }
+                                    SoundGenerator.setFrequency(
+                                        controller.frequency);
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                        color: Colors.red,
+                                        borderRadius: BorderRadius.circular(
+                                            MySize.getHeight(62))),
+                                    height: MySize.getHeight(46),
+                                    width: MySize.getWidth(140),
+                                    child: Center(
+                                      child: Text(
+                                        "Low",
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: MySize.getHeight(20)),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(width: 25),
+                                GestureDetector(
+                                  onTap: () {
                                     if (controller.slider.value < 150) {
                                       controller.slider.value =
-                                          controller.slider.value + 5;
+                                          controller.slider.value + 7;
                                     controller.frequency =
                                         controller.frequency + 30;
                                     }
@@ -325,36 +355,6 @@ class HomeView extends GetWidget<HomeController> {
                                     ),
                                   ),
                                 ),
-                                SizedBox(width: 25),
-                                GestureDetector(
-                                  onTap: () {
-                                    if (controller.slider.value > 0) {
-                                      controller.slider.value =
-                                          controller.slider.value - 5;
-                                    controller.frequency =
-                                        controller.frequency - 30;
-                                    }
-                                    SoundGenerator.setFrequency(
-                                        controller.frequency);
-                                  },
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        color: Colors.red,
-                                        borderRadius: BorderRadius.circular(
-                                            MySize.getHeight(62))),
-                                    height: MySize.getHeight(46),
-                                    width: MySize.getWidth(140),
-                                    child: Center(
-                                      child: Text(
-                                        "Low",
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: MySize.getHeight(20)),
-                                      ),
-                                    ),
-                                  ),
-                                )
                               ],
                             )
                           ],
