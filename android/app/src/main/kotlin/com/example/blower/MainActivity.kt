@@ -1,4 +1,4 @@
-package com.example.blower
+package com.mobilexperts.candle.blower
 
 import io.flutter.embedding.android.FlutterActivity
 

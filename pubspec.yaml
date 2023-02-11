@@ -11,10 +11,14 @@ dependencies:
   flutter: 
     sdk: flutter
   volume_controller: ^2.0.6
+  get_it:
+  share_plus:
   audioplayers: ^3.0.1
   google_fonts: ^4.0.3
   syncfusion_flutter_gauges: ^20.4.49
   sound_generator: ^0.0.9
+  yodo1mas: ^0.1.2
+  connectivity_plus:
 
 dev_dependencies: 
   flutter_lints: ^2.0.0

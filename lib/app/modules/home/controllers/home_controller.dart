@@ -1,8 +1,16 @@
 import 'package:flutter/animation.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:sound_generator/sound_generator.dart';
 import 'package:sound_generator/waveTypes.dart';
 import 'package:volume_controller/volume_controller.dart';
+import 'package:yodo1mas/Yodo1MAS.dart';
+
+import '../../../../constants/ad_service.dart';
+import '../../../../constants/timer_service.dart';
+import '../../../../main.dart';
+import '../../../routes/app_pages.dart';
 
 class HomeController extends GetxController with SingleGetTickerProviderMixin {
   RxBool on_Off = false.obs;
@@ -26,25 +34,55 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
   @override
   void onInit() {
     super.onInit();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      await ads();
     isPlaying = false;
-
     SoundGenerator.init(sampleRate);
-
     SoundGenerator.onIsPlayingChanged.listen((value) {
       isPlaying = value;
     });
-
     SoundGenerator.setAutoUpdateOneCycleSample(true);
-    //Force update for one time
     SoundGenerator.refreshOneCycleData();
     VolumeController().listener((volume) {
       _volumeListenerValue = volume;
     });
-
     VolumeController().getVolume().then((volume) => _setVolumeValue = volume);
+
+    Yodo1MAS.instance.setInterstitialListener((event, message) {
+      switch (event) {
+        case Yodo1MAS.AD_EVENT_OPENED:
+          print('Interstitial AD_EVENT_OPENED');
+          break;
+        case Yodo1MAS.AD_EVENT_ERROR:
+          getIt<TimerService>().verifyTimer();
+          SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+          Get.back();
+          print('Interstitial AD_EVENT_ERROR' + message);
+          break;
+        case Yodo1MAS.AD_EVENT_CLOSED:
+          getIt<TimerService>().verifyTimer();
+          SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+          Get.back();
+          break;
+      }
+    });
+    });
   }
 
-  startAnimation() {
+  Future<void> ads() async {
+    await getIt<AdService>()
+        .getAd(adType: AdService.interstitialAd)
+        .then((value) {
+      if (!value) {
+        SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+        Get.back();
+      }
+    }).catchError((error) {
+      print("Error := $error");
+    });
+  }
+
+  startAnimation() async {
     if (_volumeListenerValue <= 0.2) {
       VolumeController().setVolume(1,showSystemUI: false);
     }
@@ -59,7 +97,7 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
     animationController!.repeat();
   }
 
-  desposeAnimation() {
+  disposeAnimation() {
     SoundGenerator.stop();
     frequency = 540;
     animationController!.duration = Duration(seconds: 1);
