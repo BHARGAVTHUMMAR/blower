@@ -329,13 +329,13 @@ class HomeView extends GetWidget<HomeController> {
                                     height: MySize.getHeight(46),
                                     width: MySize.getWidth(140),
                                     child: Center(
-                                      child: Text(
-                                        "Low",
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: MySize.getHeight(20)),
-                                      ),
+                                      child: Text("Low",
+                                          style: GoogleFonts.lemon(
+                                              textStyle: TextStyle(
+                                                  color: Colors.grey.shade50,
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize:
+                                                      MySize.getHeight(20)))),
                                     ),
                                   ),
                                 ),
@@ -362,13 +362,13 @@ class HomeView extends GetWidget<HomeController> {
                                     height: MySize.getHeight(46),
                                     width: MySize.getWidth(140),
                                     child: Center(
-                                      child: Text(
-                                        "Boost",
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: MySize.getHeight(20)),
-                                      ),
+                                      child: Text("Boost",
+                                          style: GoogleFonts.lemon(
+                                              textStyle: TextStyle(
+                                                  color: Colors.grey.shade50,
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize:
+                                                      MySize.getHeight(20)))),
                                     ),
                                   ),
                                 ),
