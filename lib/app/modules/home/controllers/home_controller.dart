@@ -36,36 +36,43 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
     super.onInit();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       await ads();
-    isPlaying = false;
-    SoundGenerator.init(sampleRate);
-    SoundGenerator.onIsPlayingChanged.listen((value) {
-      isPlaying = value;
-    });
-    SoundGenerator.setAutoUpdateOneCycleSample(true);
-    SoundGenerator.refreshOneCycleData();
-    VolumeController().listener((volume) {
-      _volumeListenerValue = volume;
-    });
-    VolumeController().getVolume().then((volume) => _setVolumeValue = volume);
+      isPlaying = false;
+      SoundGenerator.init(sampleRate);
+      SoundGenerator.onIsPlayingChanged.listen((value) {
+        isPlaying = value;
+      });
+      SoundGenerator.setAutoUpdateOneCycleSample(true);
+      SoundGenerator.refreshOneCycleData();
+      VolumeController().listener((volume) {
+        _volumeListenerValue = volume;
+      });
+      VolumeController().getVolume().then((volume) => _setVolumeValue = volume);
 
-    Yodo1MAS.instance.setInterstitialListener((event, message) {
-      switch (event) {
-        case Yodo1MAS.AD_EVENT_OPENED:
-          print('Interstitial AD_EVENT_OPENED');
-          break;
-        case Yodo1MAS.AD_EVENT_ERROR:
-          getIt<TimerService>().verifyTimer();
-          SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
-          Get.back();
-          print('Interstitial AD_EVENT_ERROR' + message);
-          break;
-        case Yodo1MAS.AD_EVENT_CLOSED:
-          getIt<TimerService>().verifyTimer();
-          SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
-          Get.back();
-          break;
-      }
-    });
+      Yodo1MAS.instance.setInterstitialListener((event, message) {
+        switch (event) {
+          case Yodo1MAS.AD_EVENT_OPENED:
+            print('Interstitial AD_EVENT_OPENED');
+            if (on_Off.isTrue) {
+              SoundGenerator.stop();
+            }
+            break;
+          case Yodo1MAS.AD_EVENT_ERROR:
+            getIt<TimerService>().verifyTimer();
+            SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+            Get.back();
+            print('Interstitial AD_EVENT_ERROR' + message);
+            break;
+          case Yodo1MAS.AD_EVENT_CLOSED:
+            getIt<TimerService>().verifyTimer();
+            SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+            Get.back();
+            if (on_Off.isTrue) {
+              SoundGenerator.play();
+              SoundGenerator.setFrequency(1290);
+            }
+            break;
+        }
+      });
     });
   }
 
@@ -84,7 +91,7 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
 
   startAnimation() async {
     if (_volumeListenerValue <= 0.2) {
-      VolumeController().setVolume(1,showSystemUI: false);
+      // VolumeController().setVolume(1, showSystemUI: false);
     }
     SoundGenerator.setFrequency(frequency);
 
