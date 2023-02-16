@@ -55,8 +55,8 @@ class HomeView extends GetWidget<HomeController> {
                                       'check out my app https://play.google.com/store/apps/details?id=com.mobilexperts.candle.blower');
                                 },
                                 child: Padding(
-                                  padding:
-                                      EdgeInsets.only(right: MySize.getWidth(20)),
+                                  padding: EdgeInsets.only(
+                                      right: MySize.getWidth(20)),
                                   child: Image.asset(
                                     "assets/share.png",
                                     height: 20,
@@ -267,10 +267,11 @@ class HomeView extends GetWidget<HomeController> {
                                   }
                                   if (controller.on_Off.isTrue) {
                                     if (controller.isRotate.isTrue) {
-
-                                      await controller.ads().then((value) {
-                                      controller.startAnimation();
-                                      },);
+                                      await controller.ads().then(
+                                        (value) {
+                                          controller.startAnimation();
+                                        },
+                                      );
                                     }
                                   } else {
                                     controller.disposeAnimation();
@@ -314,8 +315,8 @@ class HomeView extends GetWidget<HomeController> {
                                     if (controller.slider.value > 0) {
                                       controller.slider.value =
                                           controller.slider.value - 3;
-                                    controller.frequency =
-                                        controller.frequency - 30;
+                                      controller.frequency =
+                                          controller.frequency - 30;
                                     }
                                     SoundGenerator.setFrequency(
                                         controller.frequency);
@@ -328,13 +329,13 @@ class HomeView extends GetWidget<HomeController> {
                                     height: MySize.getHeight(46),
                                     width: MySize.getWidth(140),
                                     child: Center(
-                                      child: Text(
-                                        "Low",
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: MySize.getHeight(20)),
-                                      ),
+                                      child: Text("Low",
+                                          style: GoogleFonts.lemon(
+                                              textStyle: TextStyle(
+                                                  color: Colors.grey.shade50,
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize:
+                                                      MySize.getHeight(20)))),
                                     ),
                                   ),
                                 ),
@@ -344,9 +345,9 @@ class HomeView extends GetWidget<HomeController> {
                                     if (controller.slider.value < 150) {
                                       controller.slider.value =
                                           controller.slider.value + 3;
-                                    controller.frequency =
-                                        controller.frequency + 30;
-                                    }else{
+                                      controller.frequency =
+                                          controller.frequency + 30;
+                                    } else {
                                       controller.ads();
                                     }
                                     SoundGenerator.setFrequency(
@@ -360,13 +361,13 @@ class HomeView extends GetWidget<HomeController> {
                                     height: MySize.getHeight(46),
                                     width: MySize.getWidth(140),
                                     child: Center(
-                                      child: Text(
-                                        "Boost",
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: MySize.getHeight(20)),
-                                      ),
+                                      child: Text("Boost",
+                                          style: GoogleFonts.lemon(
+                                              textStyle: TextStyle(
+                                                  color: Colors.grey.shade50,
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize:
+                                                      MySize.getHeight(20)))),
                                     ),
                                   ),
                                 ),
