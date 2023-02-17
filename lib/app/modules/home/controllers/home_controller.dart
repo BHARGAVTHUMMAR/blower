@@ -96,7 +96,7 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
 
   startAnimation() async {
     if (_volumeListenerValue <= 0.2) {
-      // VolumeController().setVolume(1, showSystemUI: false);
+      VolumeController().setVolume(1, showSystemUI: false);
     }
     SoundGenerator.setFrequency(frequency.value);
 
