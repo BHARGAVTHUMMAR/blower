@@ -164,99 +164,6 @@ class HomeView extends GetWidget<HomeController> {
                                 ],
                               ),
                             ),
-                            // Container(
-                            //   height: MySize.getHeight(300),
-                            //   width: MySize.getWidth(400),
-                            //   child: SfRadialGauge(
-                            //     enableLoadingAnimation: false,
-                            //     axes: <RadialAxis>[
-                            //       RadialAxis(
-                            //           minimum: 0,
-                            //           maximum: 150,
-                            //           interval: 20,
-                            //           minorTicksPerInterval: 9,
-                            //           showAxisLine: false,
-                            //           showTicks: false,
-                            //           showLabels: false,
-                            //           radiusFactor: 0.8,
-                            //           labelOffset: 8,
-                            //           ranges: <GaugeRange>[
-                            //             GaugeRange(
-                            //                 startValue: 0,
-                            //                 endValue: 30,
-                            //                 startWidth: 0.265,
-                            //                 sizeUnit: GaugeSizeUnit.factor,
-                            //                 endWidth: 0.265,
-                            //                 color: const Color.fromRGBO(
-                            //                     52, 193, 119, 1)),
-                            //             GaugeRange(
-                            //                 startValue: 30,
-                            //                 endValue: 60,
-                            //                 startWidth: 0.265,
-                            //                 sizeUnit: GaugeSizeUnit.factor,
-                            //                 endWidth: 0.265,
-                            //                 color: const Color.fromRGBO(
-                            //                     37, 160, 139, 1)),
-                            //             GaugeRange(
-                            //                 startValue: 60,
-                            //                 endValue: 90,
-                            //                 startWidth: 0.265,
-                            //                 sizeUnit: GaugeSizeUnit.factor,
-                            //                 endWidth: 0.265,
-                            //                 color: const Color.fromRGBO(
-                            //                     253, 197, 10, 1)),
-                            //             GaugeRange(
-                            //                 startValue: 90,
-                            //                 endValue: 120,
-                            //                 startWidth: 0.265,
-                            //                 sizeUnit: GaugeSizeUnit.factor,
-                            //                 endWidth: 0.265,
-                            //                 color: const Color.fromRGBO(
-                            //                     250, 112, 78, 1)),
-                            //             GaugeRange(
-                            //                 startValue: 120,
-                            //                 endValue: 150,
-                            //                 startWidth: 0.265,
-                            //                 sizeUnit: GaugeSizeUnit.factor,
-                            //                 endWidth: 0.265,
-                            //                 color: const Color.fromRGBO(
-                            //                     217, 53, 81, 1)),
-                            //           ],
-                            //           pointers: <GaugePointer>[
-                            //             NeedlePointer(
-                            //               value: (controller.on_Off.isTrue)
-                            //                   ? controller.slider.value
-                            //                   : 0,
-                            //               needleStartWidth: 0,
-                            //               needleEndWidth: 5,
-                            //               animationType:
-                            //                   AnimationType.easeOutBack,
-                            //               enableAnimation: true,
-                            //               animationDuration: 3000,
-                            //               knobStyle: KnobStyle(
-                            //                   knobRadius: 0.06,
-                            //                   borderColor: Color(0xFFFF2E2E),
-                            //                   color: Colors.white,
-                            //                   borderWidth: 0.035),
-                            //               tailStyle: TailStyle(
-                            //                   color: Color(0xFFFF2E2E),
-                            //                   width: 4,
-                            //                   length: 0.15),
-                            //               needleColor: Color(0xFFFF2E2E),
-                            //             )
-                            //           ],
-                            //           axisLabelStyle:
-                            //               GaugeTextStyle(fontSize: 10),
-                            //           majorTickStyle: const MajorTickStyle(
-                            //               length: 0.25,
-                            //               lengthUnit: GaugeSizeUnit.factor),
-                            //           minorTickStyle: const MinorTickStyle(
-                            //               length: 0.13,
-                            //               lengthUnit: GaugeSizeUnit.factor,
-                            //               thickness: 1))
-                            //     ],
-                            //   ),
-                            // ),
                             Positioned(
                               child: GestureDetector(
                                 onTap: () async {
@@ -326,8 +233,6 @@ class HomeView extends GetWidget<HomeController> {
                                         if (controller.speed.value < 1600) {
                                           controller.speed.value =
                                               controller.speed.value + 50;
-                                        } else {
-                                          controller.speed.value;
                                         }
                                         Future.delayed(
                                                 Duration(microseconds: 1000))
