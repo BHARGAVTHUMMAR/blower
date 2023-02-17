@@ -369,9 +369,8 @@ class HomeView extends GetWidget<HomeController> {
                                           controller.slider.value + 5;
                                       controller.frequency.value =
                                           controller.frequency.value + 30.0;
-
                                       if (controller.on_Off.isTrue) {
-                                        if (controller.speed.value > 0) {
+                                        if (controller.speed.value > 200) {
                                           controller.speed.value =
                                               controller.speed.value - 50;
                                         }
