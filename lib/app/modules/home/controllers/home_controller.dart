@@ -1,5 +1,6 @@
 import 'package:flutter/animation.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:sound_generator/sound_generator.dart';
@@ -37,7 +38,9 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
   void onInit() {
     super.onInit();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-      await ads();
+      if (!kDebugMode) {
+        await ads();
+      }
       isPlaying = false;
       SoundGenerator.init(sampleRate);
       SoundGenerator.onIsPlayingChanged.listen((value) {

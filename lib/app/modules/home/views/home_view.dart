@@ -1,4 +1,5 @@
 import 'package:blower/constants/ad_service.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -269,11 +270,15 @@ class HomeView extends GetWidget<HomeController> {
                                   }
                                   if (controller.on_Off.isTrue) {
                                     if (controller.isRotate.isTrue) {
-                                      await controller.ads().then(
-                                        (value) {
-                                          controller.startAnimation();
-                                        },
-                                      );
+                                      if (kDebugMode) {
+                                        controller.startAnimation();
+                                      } else {
+                                        await controller.ads().then(
+                                          (value) {
+                                            controller.startAnimation();
+                                          },
+                                        );
+                                      }
                                     }
                                   } else {
                                     controller.disposeAnimation();
@@ -366,7 +371,9 @@ class HomeView extends GetWidget<HomeController> {
                                         controller.startAnimation();
                                       });
                                     } else {
-                                      controller.ads();
+                                      if (!kDebugMode) {
+                                        controller.ads();
+                                      }
                                     }
                                     SoundGenerator.setFrequency(
                                         controller.frequency.value);
