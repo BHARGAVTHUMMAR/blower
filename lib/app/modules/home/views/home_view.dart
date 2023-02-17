@@ -283,13 +283,14 @@ class HomeView extends GetWidget<HomeController> {
                                           controller.startAnimation();
                                         });
                                       }
+                                      SoundGenerator.setFrequency(
+                                          controller.frequency.value);
                                     } else {
-                                      if (!kDebugMode) {
+                                      if (kDebugMode) {
                                         controller.ads();
                                       }
+                                      SoundGenerator.stop();
                                     }
-                                    SoundGenerator.setFrequency(
-                                        controller.frequency.value);
                                   },
                                   child: Container(
                                     decoration: BoxDecoration(

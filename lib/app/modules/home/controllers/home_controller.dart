@@ -53,12 +53,15 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
       });
       VolumeController().getVolume().then((volume) => _setVolumeValue = volume);
       Yodo1MAS.instance.setRewardListener((event, message) {
+        if (message == "Reward Opened") {
+          SoundGenerator.stop();
+        }
+        print(message);
         switch (event) {
           case Yodo1MAS.AD_EVENT_OPENED:
             print('RewardVideo AD_EVENT_OPENED');
-            if (on_Off.isTrue) {
-              SoundGenerator.stop();
-            }
+            SoundGenerator.stop();
+
             break;
           case Yodo1MAS.AD_EVENT_ERROR:
             print('RewardVideo AD_EVENT_ERROR' + message);
@@ -117,21 +120,21 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
   }
 
   Future<void> ads() async {
-    Yodo1MAS.instance.showRewardAd();
-    // await getIt<AdService>()
-    //     .getAd(adType: AdService.showRewardAd)
-    //     .then((value) {
-    //   if (!value) {
-    //     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
-    //     Get.back();
-    //   } else {
-    //     Future.delayed(Duration(seconds: 5)).then((value) {
-    //       SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
-    //     });
-    //   }
-    // }).catchError((error) {
-    //   print("Error := $error");
-    // });
+    // Yodo1MAS.instance.showRewardAd();
+    await getIt<AdService>()
+        .getAd(adType: AdService.showRewardAd)
+        .then((value) {
+      if (!value) {
+        SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+        Get.back();
+      } else {
+        Future.delayed(Duration(seconds: 5)).then((value) {
+          SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+        });
+      }
+    }).catchError((error) {
+      print("Error := $error");
+    });
   }
 
   startAnimation() async {
