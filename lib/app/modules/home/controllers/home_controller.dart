@@ -109,7 +109,7 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
 
     SoundGenerator.play();
     animationController = AnimationController(
-      duration: Duration(milliseconds: 1000),
+      duration: Duration(milliseconds: speed.value),
       vsync: this,
     ).obs;
     isAnimationInit.value = true;
