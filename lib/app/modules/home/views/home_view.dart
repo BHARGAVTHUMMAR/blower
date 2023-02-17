@@ -286,10 +286,9 @@ class HomeView extends GetWidget<HomeController> {
                                       SoundGenerator.setFrequency(
                                           controller.frequency.value);
                                     } else {
-                                      if (kDebugMode) {
+                                      if (!kDebugMode) {
                                         controller.ads();
                                       }
-                                      SoundGenerator.stop();
                                     }
                                   },
                                   child: Container(

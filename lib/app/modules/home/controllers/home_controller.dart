@@ -53,14 +53,13 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
       });
       VolumeController().getVolume().then((volume) => _setVolumeValue = volume);
       Yodo1MAS.instance.setRewardListener((event, message) {
-        if (message == "Reward Opened") {
+        if (message != "Reward Earned" || message != "Reward Closed") {
           SoundGenerator.stop();
         }
         print(message);
         switch (event) {
           case Yodo1MAS.AD_EVENT_OPENED:
             print('RewardVideo AD_EVENT_OPENED');
-            SoundGenerator.stop();
 
             break;
           case Yodo1MAS.AD_EVENT_ERROR:
