@@ -9,6 +9,7 @@ import '../constants/firebase_controller.dart';
 
 class AdService {
   static const interstitialAd = "interstitialAd";
+  static const showRewardAd = "showRewardAd";
   static const bannerAd = "bannerAd";
   static const rewardsAd = "rewardsAd";
   static RxBool isVisible = true.obs;
@@ -22,6 +23,8 @@ class AdService {
         SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
         if (adType == AdService.interstitialAd) {
           Yodo1MAS.instance.showInterstitialAd();
+        } else if (adType == AdService.showRewardAd) {
+          Yodo1MAS.instance.showRewardAd();
         } else if (adType == AdService.bannerAd) {
           Yodo1MAS.instance.showBannerAd();
         } else {
@@ -36,7 +39,6 @@ class AdService {
   }
 
   getBanners() {
-
     if (isVisible.isTrue) {
       return Yodo1MASBannerAd(
         size: BannerSize.Banner,

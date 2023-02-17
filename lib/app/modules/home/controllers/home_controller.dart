@@ -49,23 +49,40 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
         _volumeListenerValue = volume;
       });
       VolumeController().getVolume().then((volume) => _setVolumeValue = volume);
-
-      Yodo1MAS.instance.setInterstitialListener((event, message) {
+      Yodo1MAS.instance.setRewardListener((event, message) {
         switch (event) {
           case Yodo1MAS.AD_EVENT_OPENED:
-            print('Interstitial AD_EVENT_OPENED');
+            print('RewardVideo AD_EVENT_OPENED');
             if (on_Off.isTrue) {
               print(frequency.value);
               SoundGenerator.stop();
             }
             break;
           case Yodo1MAS.AD_EVENT_ERROR:
+            print('RewardVideo AD_EVENT_ERROR' + message);
             getIt<TimerService>().verifyTimer();
             SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
             Get.back();
             print('Interstitial AD_EVENT_ERROR' + message);
+
             break;
           case Yodo1MAS.AD_EVENT_CLOSED:
+            print('RewardVideo AD_EVENT_CLOSED');
+            getIt<TimerService>().verifyTimer();
+            SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+            Get.back();
+            if (on_Off.isTrue) {
+              SoundGenerator.play();
+              // SoundGenerator.setFrequency(frequency.value);
+              print(SoundGenerator.getSampleRate);
+              if (_volumeListenerValue <= 0.2) {
+                VolumeController().setVolume(1, showSystemUI: false);
+              }
+              frequency.value = frequency.value;
+            }
+            break;
+          case Yodo1MAS.AD_EVENT_EARNED:
+            print('RewardVideo AD_EVENT_EARNED');
             getIt<TimerService>().verifyTimer();
             SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
             Get.back();
@@ -81,24 +98,38 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
             break;
         }
       });
+      // Yodo1MAS.instance.setInterstitialListener((event, message) {
+      //   switch (event) {
+      //     case Yodo1MAS.AD_EVENT_OPENED:
+      //       print('Interstitial AD_EVENT_OPENED');
+      //
+      //       break;
+      //     case Yodo1MAS.AD_EVENT_ERROR:
+      //
+      //     case Yodo1MAS.AD_EVENT_CLOSED:
+      //
+      //       break;
+      //   }
+      // });
     });
   }
 
   Future<void> ads() async {
-    await getIt<AdService>()
-        .getAd(adType: AdService.interstitialAd)
-        .then((value) {
-      if (!value) {
-        SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
-        Get.back();
-      } else {
-        Future.delayed(Duration(seconds: 5)).then((value) {
-          SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
-        });
-      }
-    }).catchError((error) {
-      print("Error := $error");
-    });
+    Yodo1MAS.instance.showRewardAd();
+    // await getIt<AdService>()
+    //     .getAd(adType: AdService.showRewardAd)
+    //     .then((value) {
+    //   if (!value) {
+    //     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+    //     Get.back();
+    //   } else {
+    //     Future.delayed(Duration(seconds: 5)).then((value) {
+    //       SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+    //     });
+    //   }
+    // }).catchError((error) {
+    //   print("Error := $error");
+    // });
   }
 
   startAnimation() async {
