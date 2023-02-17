@@ -17,7 +17,7 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
   RxBool isRotate = false.obs;
   RxBool isTap = false.obs;
   RxBool isAnimationInit = false.obs;
-  AnimationController? animationController;
+  Rx<AnimationController>? animationController;
   Rx<AnimationController>? animationController1;
   RxDouble slider = 75.0.obs;
   RxInt milliseconds = 0.obs;
@@ -25,11 +25,13 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
   double _getVolume = 0;
   double _setVolumeValue = 0;
   bool isPlaying = false;
-  double frequency = 540;
+  RxDouble frequency = 540.0.obs;
+  RxInt speed = 1000.obs;
   double balance = 0;
   double volume = 1;
   waveTypes waveType = waveTypes.SINUSOIDAL;
   int sampleRate = 44100;
+  RxInt a = 1000.obs;
 
   @override
   void onInit() {
@@ -53,6 +55,7 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
           case Yodo1MAS.AD_EVENT_OPENED:
             print('Interstitial AD_EVENT_OPENED');
             if (on_Off.isTrue) {
+              print(frequency.value);
               SoundGenerator.stop();
             }
             break;
@@ -68,7 +71,9 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
             Get.back();
             if (on_Off.isTrue) {
               SoundGenerator.play();
-              SoundGenerator.setFrequency(1290);
+              // SoundGenerator.setFrequency(frequency.value);
+              print(SoundGenerator.getSampleRate);
+              frequency.value = frequency.value;
             }
             break;
         }
@@ -93,25 +98,25 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
     if (_volumeListenerValue <= 0.2) {
       // VolumeController().setVolume(1, showSystemUI: false);
     }
-    SoundGenerator.setFrequency(frequency);
+    SoundGenerator.setFrequency(frequency.value);
 
     SoundGenerator.play();
     animationController = AnimationController(
       duration: Duration(milliseconds: 1000),
       vsync: this,
-    );
+    ).obs;
     isAnimationInit.value = true;
-    animationController!.repeat();
+    animationController!.value.repeat();
   }
 
   disposeAnimation() {
     SoundGenerator.stop();
-    frequency = 540;
-    animationController!.duration = Duration(seconds: 1);
-    animationController!.forward(from: 0);
+    frequency.value = 540;
+    animationController!.value.duration = Duration(seconds: 1);
+    animationController!.value.forward(from: 0);
     Future.delayed(Duration(seconds: 1)).then((value) {
-      animationController!.duration = Duration(seconds: 2);
-      animationController!.forward(from: 0);
+      animationController!.value.duration = Duration(seconds: 2);
+      animationController!.value.forward(from: 0);
     });
     isAnimationInit.value = true;
   }
@@ -138,7 +143,7 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
 
   @override
   void onClose() {
-    animationController!.dispose();
+    animationController!.value.dispose();
     VolumeController().removeListener();
     super.onClose();
   }

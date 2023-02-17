@@ -1,5 +1,6 @@
 import 'package:blower/constants/ad_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:share_plus/share_plus.dart';
@@ -312,14 +313,20 @@ class HomeView extends GetWidget<HomeController> {
                               children: [
                                 GestureDetector(
                                   onTap: () {
+                                    print(
+                                        "Slider===========================${controller.slider.value}");
+                                    print(
+                                        "Slider===========================${controller.frequency.value}");
                                     if (controller.slider.value > 0) {
                                       controller.slider.value =
-                                          controller.slider.value - 3;
-                                      controller.frequency =
-                                          controller.frequency - 30;
+                                          controller.slider.value - 5;
                                     }
-                                    SoundGenerator.setFrequency(
-                                        controller.frequency);
+                                    if (controller.frequency.value > 1.0) {
+                                      controller.frequency.value =
+                                          controller.frequency.value - 30;
+                                      SoundGenerator.setFrequency(
+                                          controller.frequency.value);
+                                    }
                                   },
                                   child: Container(
                                     decoration: BoxDecoration(
@@ -344,15 +351,21 @@ class HomeView extends GetWidget<HomeController> {
                                   onTap: () {
                                     if (controller.slider.value < 150) {
                                       controller.slider.value =
-                                          controller.slider.value + 3;
-                                      controller.frequency =
-                                          controller.frequency + 30;
+                                          controller.slider.value + 5;
+                                      controller.frequency.value =
+                                          controller.frequency.value + 30.0;
+                                      // controller.speed -= 100;
+                                      // controller.animationController!.value
+                                      //         .duration =
+                                      //     Duration(
+                                      //         milliseconds:
+                                      //             controller.speed.value);
+                                      // controller.update();
                                     } else {
-                                      print(controller.frequency);
                                       controller.ads();
                                     }
                                     SoundGenerator.setFrequency(
-                                        controller.frequency);
+                                        controller.frequency.value);
                                   },
                                   child: Container(
                                     decoration: BoxDecoration(
@@ -387,24 +400,30 @@ class HomeView extends GetWidget<HomeController> {
                       child: Stack(
                         alignment: Alignment.center,
                         children: [
-                          (controller.on_Off.isTrue)
-                              ? Image.asset(
-                                  "assets/fan_holder_on.png",
-                                  height: MySize.getHeight(350),
-                                )
-                              : Image.asset(
-                                  "assets/fan_holder.png",
-                                  height: MySize.getHeight(350),
-                                ),
+                          Image.asset(
+                            "assets/fan_holder.png",
+                            color: Color(0xff252B40),
+                            height: MySize.getHeight(350),
+                          ),
                           if (controller.isRotate.isTrue)
                             Positioned(
                               child: RotationTransition(
-                                turns: Tween(begin: 0.0, end: 1.0)
-                                    .animate(controller.animationController!),
+                                turns: Tween(begin: 0.0, end: 1.0).animate(
+                                    controller.animationController!.value),
                                 child: Image.asset(
-                                  "assets/fan1.png",
+                                  "assets/FAN_Main.png",
                                   height: MySize.getHeight(220),
                                 ),
+                              ),
+                            ),
+                          if (controller.isRotate.isTrue)
+                            Positioned(
+                              bottom: 6,
+                              right: 35,
+                              child: Image.asset(
+                                "assets/arrow.gif",
+                                height: MySize.getHeight(50),
+                                width: MySize.getWidth(50),
                               ),
                             )
                         ],
@@ -418,14 +437,15 @@ class HomeView extends GetWidget<HomeController> {
                             children: [
                               Image.asset(
                                 "assets/fan_holder.png",
+                                color: Color(0xff252B40),
                                 height: MySize.getHeight(350),
                               ),
                               Positioned(
                                 child: RotationTransition(
-                                  turns: Tween(begin: 0.0, end: 1.0)
-                                      .animate(controller.animationController!),
+                                  turns: Tween(begin: 0.0, end: 1.0).animate(
+                                      controller.animationController!.value),
                                   child: Image.asset(
-                                    "assets/fan1.png",
+                                    "assets/FAN_Main.png",
                                     height: MySize.getHeight(220),
                                   ),
                                 ),
@@ -440,6 +460,7 @@ class HomeView extends GetWidget<HomeController> {
                             children: [
                               Image.asset(
                                 "assets/fan_holder.png",
+                                color: Color(0xff252B40),
                                 height: MySize.getHeight(350),
                               ),
                               (controller.animationController1 != null)
@@ -454,7 +475,7 @@ class HomeView extends GetWidget<HomeController> {
                                               .animate(controller
                                                   .animationController1!.value),
                                           child: Image.asset(
-                                            "assets/fan1.png",
+                                            "assets/FAN_Main.png",
                                             height: MySize.getHeight(220),
                                           ),
                                         ),
@@ -467,7 +488,7 @@ class HomeView extends GetWidget<HomeController> {
                                           controller.update();
                                         },
                                         child: Image.asset(
-                                          "assets/fan1.png",
+                                          "assets/FAN_Main.png",
                                           height: MySize.getHeight(220),
                                         ),
                                       ),
