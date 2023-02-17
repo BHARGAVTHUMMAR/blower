@@ -57,7 +57,6 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
           case Yodo1MAS.AD_EVENT_OPENED:
             print('RewardVideo AD_EVENT_OPENED');
             if (on_Off.isTrue) {
-              print(frequency.value);
               SoundGenerator.stop();
             }
             break;

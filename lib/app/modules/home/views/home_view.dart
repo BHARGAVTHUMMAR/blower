@@ -234,8 +234,7 @@ class HomeView extends GetWidget<HomeController> {
                                           controller.speed.value =
                                               controller.speed.value + 50;
                                         }
-                                        Future.delayed(
-                                                Duration(microseconds: 1000))
+                                        Future.delayed(Duration(seconds: 3))
                                             .then((value) {
                                           controller.startAnimation();
                                         });
@@ -279,8 +278,7 @@ class HomeView extends GetWidget<HomeController> {
                                           controller.speed.value =
                                               controller.speed.value - 50;
                                         }
-                                        Future.delayed(
-                                                Duration(microseconds: 500))
+                                        Future.delayed(Duration(seconds: 3))
                                             .then((value) {
                                           controller.startAnimation();
                                         });
