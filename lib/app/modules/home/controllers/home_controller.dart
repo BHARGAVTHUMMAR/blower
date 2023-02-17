@@ -73,6 +73,9 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
               SoundGenerator.play();
               // SoundGenerator.setFrequency(frequency.value);
               print(SoundGenerator.getSampleRate);
+              if (_volumeListenerValue <= 0.2) {
+                VolumeController().setVolume(1, showSystemUI: false);
+              }
               frequency.value = frequency.value;
             }
             break;
@@ -88,6 +91,10 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
       if (!value) {
         SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
         Get.back();
+      } else {
+        Future.delayed(Duration(seconds: 5)).then((value) {
+          SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+        });
       }
     }).catchError((error) {
       print("Error := $error");
