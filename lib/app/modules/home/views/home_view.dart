@@ -324,11 +324,13 @@ class HomeView extends GetWidget<HomeController> {
                                           controller.slider.value - 5;
                                       controller.speed.value =
                                           controller.speed.value + 50;
-                                      Future.delayed(
-                                              Duration(milliseconds: 500))
-                                          .then((value) {
-                                        controller.startAnimation();
-                                      });
+                                      if (controller.on_Off.isTrue) {
+                                        Future.delayed(
+                                                Duration(milliseconds: 500))
+                                            .then((value) {
+                                          controller.startAnimation();
+                                        });
+                                      }
                                     }
                                     if (controller.frequency.value > 1.0) {
                                       controller.frequency.value =
@@ -365,11 +367,13 @@ class HomeView extends GetWidget<HomeController> {
                                           controller.frequency.value + 30.0;
                                       controller.speed.value =
                                           controller.speed.value - 50;
-                                      Future.delayed(
-                                              Duration(milliseconds: 500))
-                                          .then((value) {
-                                        controller.startAnimation();
-                                      });
+                                      if (controller.on_Off.isTrue) {
+                                        Future.delayed(
+                                                Duration(milliseconds: 500))
+                                            .then((value) {
+                                          controller.startAnimation();
+                                        });
+                                      }
                                     } else {
                                       if (!kDebugMode) {
                                         controller.ads();
@@ -403,7 +407,7 @@ class HomeView extends GetWidget<HomeController> {
                       ]),
                 ),
               ),
-              getIt<AdService>().getBanners(),
+              if (!kDebugMode) getIt<AdService>().getBanners(),
               Spacer(),
               (controller.on_Off.isTrue)
                   ? Container(
@@ -454,7 +458,8 @@ class HomeView extends GetWidget<HomeController> {
                               Positioned(
                                 child: RotationTransition(
                                   turns: Tween(begin: 0.0, end: 1.0).animate(
-                                      controller.animationController!.value),
+                                    controller.animationController!.value,
+                                  ),
                                   child: Image.asset(
                                     "assets/FAN_Main.png",
                                     height: MySize.getHeight(220),
