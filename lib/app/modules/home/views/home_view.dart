@@ -319,22 +319,28 @@ class HomeView extends GetWidget<HomeController> {
                               children: [
                                 GestureDetector(
                                   onTap: () {
-                                    if (controller.slider.value > 0) {
+                                    if (controller.slider.value > 3) {
                                       controller.slider.value =
                                           controller.slider.value - 5;
-                                      controller.speed.value =
-                                          controller.speed.value + 50;
-                                      Future.delayed(
-                                              Duration(milliseconds: 500))
-                                          .then((value) {
-                                        controller.startAnimation();
-                                      });
-                                    }
-                                    if (controller.frequency.value > 1.0) {
-                                      controller.frequency.value =
-                                          controller.frequency.value - 30;
-                                      SoundGenerator.setFrequency(
-                                          controller.frequency.value);
+                                      if (controller.on_Off.isTrue) {
+                                        if (controller.speed.value < 1600) {
+                                          controller.speed.value =
+                                              controller.speed.value + 50;
+                                        } else {
+                                          controller.speed.value;
+                                        }
+                                        Future.delayed(
+                                                Duration(microseconds: 1000))
+                                            .then((value) {
+                                          controller.startAnimation();
+                                        });
+                                      }
+                                      if (controller.frequency.value > 1.0) {
+                                        controller.frequency.value =
+                                            controller.frequency.value - 30;
+                                        SoundGenerator.setFrequency(
+                                            controller.frequency.value);
+                                      }
                                     }
                                   },
                                   child: Container(
@@ -363,13 +369,18 @@ class HomeView extends GetWidget<HomeController> {
                                           controller.slider.value + 5;
                                       controller.frequency.value =
                                           controller.frequency.value + 30.0;
-                                      controller.speed.value =
-                                          controller.speed.value - 50;
-                                      Future.delayed(
-                                              Duration(milliseconds: 500))
-                                          .then((value) {
-                                        controller.startAnimation();
-                                      });
+
+                                      if (controller.on_Off.isTrue) {
+                                        if (controller.speed.value > 0) {
+                                          controller.speed.value =
+                                              controller.speed.value - 50;
+                                        }
+                                        Future.delayed(
+                                                Duration(microseconds: 500))
+                                            .then((value) {
+                                          controller.startAnimation();
+                                        });
+                                      }
                                     } else {
                                       if (!kDebugMode) {
                                         controller.ads();
