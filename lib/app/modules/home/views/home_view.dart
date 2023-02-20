@@ -177,7 +177,7 @@ class HomeView extends GetWidget<HomeController> {
                                   }
                                   if (controller.on_Off.isTrue) {
                                     if (controller.isRotate.isTrue) {
-                                      if (kDebugMode) {
+                                      if (!kDebugMode) {
                                         controller.startAnimation();
                                       } else {
                                         await controller.ads().then(
@@ -268,13 +268,13 @@ class HomeView extends GetWidget<HomeController> {
                                 SizedBox(width: 25),
                                 GestureDetector(
                                   onTap: () {
-                                    if (controller.slider.value < 150) {
+                                    if (controller.slider.value < 145) {
                                       controller.slider.value =
                                           controller.slider.value + 5;
                                       controller.frequency.value =
                                           controller.frequency.value + 30.0;
                                       if (controller.on_Off.isTrue) {
-                                        if (controller.speed.value > 200) {
+                                        if (controller.speed.value > 250) {
                                           controller.speed.value =
                                               controller.speed.value - 50;
                                         }
@@ -286,7 +286,7 @@ class HomeView extends GetWidget<HomeController> {
                                       SoundGenerator.setFrequency(
                                           controller.frequency.value);
                                     } else {
-                                      if (!kDebugMode) {
+                                      if (kDebugMode) {
                                         controller.ads();
                                       }
                                     }
