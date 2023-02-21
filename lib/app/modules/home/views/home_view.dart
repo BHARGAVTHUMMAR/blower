@@ -190,7 +190,6 @@ class HomeView extends GetWidget<HomeController> {
                                   } else {
                                     controller.disposeAnimation();
                                   }
-
                                   controller.slider.value = 75;
                                 },
                                 child: Container(
@@ -286,9 +285,9 @@ class HomeView extends GetWidget<HomeController> {
                                       SoundGenerator.setFrequency(
                                           controller.frequency.value);
                                     } else {
-                                      if (kDebugMode) {
-                                        controller.ads();
-                                      }
+                                      controller.ads().then((value) {
+                                        SoundGenerator.stop();
+                                      });
                                     }
                                   },
                                   child: Container(
