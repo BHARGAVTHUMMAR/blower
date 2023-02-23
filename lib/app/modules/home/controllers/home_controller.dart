@@ -50,45 +50,18 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
         _volumeListenerValue = volume;
       });
       VolumeController().getVolume().then((volume) => _setVolumeValue = volume);
-      Yodo1MAS.instance.setRewardListener((event, message) {
-        if (message != "Reward Earned" || message != "Reward Closed") {
-          SoundGenerator.stop();
-        }
-        print(message);
+      Yodo1MAS.instance.setInterstitialListener((event, message) {
         switch (event) {
           case Yodo1MAS.AD_EVENT_OPENED:
-            print('RewardVideo AD_EVENT_OPENED');
-
-            SoundGenerator.stop();
-
+            print('Interstitial AD_EVENT_OPENED');
+      SoundGenerator.stop();
             break;
           case Yodo1MAS.AD_EVENT_ERROR:
-            print('RewardVideo AD_EVENT_ERROR' + message);
-            SoundGenerator.stop();
-            getIt<TimerService>().verifyTimer();
-            SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
-            Get.back();
-            print('Interstitial AD_EVENT_ERROR' + message);
-
-            break;
+      SoundGenerator.stop();
+      SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+      Get.back();
+      break;
           case Yodo1MAS.AD_EVENT_CLOSED:
-            print('RewardVideo AD_EVENT_CLOSED');
-            getIt<TimerService>().verifyTimer();
-            SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
-            Get.back();
-            if (on_Off.isTrue) {
-              SoundGenerator.play();
-              SoundGenerator.setFrequency(frequency.value);
-              print(SoundGenerator.getSampleRate);
-              if (_volumeListenerValue <= 0.2) {
-                VolumeController().setVolume(1, showSystemUI: false);
-              }
-              frequency.value = frequency.value;
-            }
-            break;
-          case Yodo1MAS.AD_EVENT_EARNED:
-            print('RewardVideo AD_EVENT_EARNED');
-            getIt<TimerService>().verifyTimer();
             SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
             Get.back();
             if (on_Off.isTrue) {
@@ -103,26 +76,13 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
             break;
         }
       });
-      // Yodo1MAS.instance.setInterstitialListener((event, message) {
-      //   switch (event) {
-      //     case Yodo1MAS.AD_EVENT_OPENED:
-      //       print('Interstitial AD_EVENT_OPENED');
-      //
-      //       break;
-      //     case Yodo1MAS.AD_EVENT_ERROR:
-      //
-      //     case Yodo1MAS.AD_EVENT_CLOSED:
-      //
-      //       break;
-      //   }
-      // });
     });
   }
 
   Future<void> ads() async {
     // Yodo1MAS.instance.showRewardAd();
     await getIt<AdService>()
-        .getAd(adType: AdService.showRewardAd)
+        .getAd(adType: AdService.interstitialAd)
         .then((value) {
       if (!value) {
         SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
@@ -137,15 +97,6 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
     });
   }
 
-  startSound() {
-    if (_volumeListenerValue <= 0.2) {
-      VolumeController().setVolume(1, showSystemUI: false);
-    }
-    SoundGenerator.setFrequency(frequency.value);
-
-    SoundGenerator.play();
-  }
-
   startAnimation() async {
     animationController = AnimationController(
       duration: Duration(milliseconds: speed.value),
@@ -154,9 +105,16 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
     isAnimationInit.value = true;
     animationController!.value.repeat();
   }
+  startSound() {
+    if (_volumeListenerValue <= 0.2) {
+      VolumeController().setVolume(1, showSystemUI: false);
+    }speed.value = 1000;
+    frequency.value = 540.0;
+    SoundGenerator.setFrequency(frequency.value);
+    SoundGenerator.play();
+  }
 
   disposeAnimation() {
-    SoundGenerator.stop();
     frequency.value = 540;
     animationController!.value.duration = Duration(seconds: 1);
     animationController!.value.forward(from: 0);
@@ -165,6 +123,7 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
       animationController!.value.forward(from: 0);
     });
     isAnimationInit.value = true;
+    SoundGenerator.stop();
   }
 
   setDragAnimation() {

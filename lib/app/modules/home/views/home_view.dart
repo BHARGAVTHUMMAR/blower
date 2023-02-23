@@ -179,8 +179,8 @@ class HomeView extends GetWidget<HomeController> {
                                     if (controller.isRotate.isTrue) {
                                       await controller.ads().then(
                                         (value) {
-                                          controller.startSound();
                                           controller.startAnimation();
+                                          controller.startSound();
                                         },
                                       );
                                     }
@@ -220,86 +220,92 @@ class HomeView extends GetWidget<HomeController> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                GestureDetector(
-                                  onTap: () {
-                                    if (controller.slider.value > 3) {
-                                      controller.slider.value =
-                                          controller.slider.value - 5;
-                                      if (controller.on_Off.isTrue) {
-                                        if (controller.speed.value < 1600) {
-                                          controller.speed.value =
-                                              controller.speed.value + 50;
+                                ClipRRect(
+      borderRadius: BorderRadius.circular(
+      MySize.getHeight(62)),
+                                  child: Material(
+                                    color: Colors.red,
+                                    child: InkWell(
+                                      onTap: () {
+                                        if (controller.slider.value > 3) {
+                                          controller.slider.value =
+                                              controller.slider.value - 5;
+                                          if (controller.on_Off.isTrue) {
+                                            if (controller.speed.value < 1600) {
+                                              controller.speed.value =
+                                                  controller.speed.value + 50;
+                                            }
+                                            Future.delayed(Duration(seconds: 3))
+                                                .then((value) {
+                                              controller.startAnimation();
+                                            });
+                                          }
+                                          if (controller.frequency.value > 30.0) {
+                                            controller.frequency.value =
+                                                controller.frequency.value - 30;
+                                            SoundGenerator.setFrequency(
+                                                controller.frequency.value);
+                                          }
                                         }
-                                        Future.delayed(Duration(seconds: 3))
-                                            .then((value) {
-                                          controller.startAnimation();
-                                        });
-                                      }
-                                      if (controller.frequency.value > 1.0) {
-                                        controller.frequency.value =
-                                            controller.frequency.value - 30;
-                                        SoundGenerator.setFrequency(
-                                            controller.frequency.value);
-                                      }
-                                    }
-                                  },
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        color: Colors.red,
-                                        borderRadius: BorderRadius.circular(
-                                            MySize.getHeight(62))),
-                                    height: MySize.getHeight(46),
-                                    width: MySize.getWidth(140),
-                                    child: Center(
-                                      child: Text("Low",
-                                          style: GoogleFonts.lemon(
-                                              textStyle: TextStyle(
-                                                  color: Colors.grey.shade50,
-                                                  fontWeight: FontWeight.w500,
-                                                  fontSize:
-                                                      MySize.getHeight(20)))),
+                                      },
+                                      child: Container(
+                                        height: MySize.getHeight(46),
+                                        width: MySize.getWidth(140),
+                                        child: Center(
+                                          child: Text("Low",
+                                              style: GoogleFonts.lemon(
+                                                  textStyle: TextStyle(
+                                                      color: Colors.grey.shade50,
+                                                      fontWeight: FontWeight.w500,
+                                                      fontSize:
+                                                          MySize.getHeight(20)))),
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ),
                                 SizedBox(width: 25),
-                                GestureDetector(
-                                  onTap: () {
-                                    if (controller.slider.value < 145) {
-                                      controller.slider.value =
-                                          controller.slider.value + 5;
-                                      controller.frequency.value =
-                                          controller.frequency.value + 30.0;
-                                      if (controller.on_Off.isTrue) {
-                                        if (controller.speed.value > 250) {
-                                          controller.speed.value =
-                                              controller.speed.value - 50;
+                                ClipRRect(
+      borderRadius: BorderRadius.circular(
+      MySize.getHeight(62)),
+                                  child: Material(
+                                    color: Colors.green,
+                                    child: InkWell(
+                                      onTap: () {
+                                        if (controller.slider.value < 145) {
+                                          controller.slider.value =
+                                              controller.slider.value + 5;
+                                          controller.frequency.value =
+                                              controller.frequency.value + 30.0;
+                                          if (controller.on_Off.isTrue) {
+                                            if (controller.speed.value > 250) {
+                                              controller.speed.value =
+                                                  controller.speed.value - 50;
+                                            }
+                                            Future.delayed(Duration(seconds: 3))
+                                                .then((value) {
+                                              controller.startAnimation();
+                                            });
+                                          }
+                                          SoundGenerator.setFrequency(
+                                              controller.frequency.value);
+                                        } else {
+                                          controller.ads().then((value) {});
                                         }
-                                        Future.delayed(Duration(seconds: 3))
-                                            .then((value) {
-                                          controller.startAnimation();
-                                        });
-                                      }
-                                      SoundGenerator.setFrequency(
-                                          controller.frequency.value);
-                                    } else {
-                                      controller.ads().then((value) {});
-                                    }
-                                  },
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        color: Colors.green,
-                                        borderRadius: BorderRadius.circular(
-                                            MySize.getHeight(62))),
-                                    height: MySize.getHeight(46),
-                                    width: MySize.getWidth(140),
-                                    child: Center(
-                                      child: Text("Boost",
-                                          style: GoogleFonts.lemon(
-                                              textStyle: TextStyle(
-                                                  color: Colors.grey.shade50,
-                                                  fontWeight: FontWeight.w500,
-                                                  fontSize:
-                                                      MySize.getHeight(20)))),
+                                      },
+                                      child: Container(
+                                        height: MySize.getHeight(46),
+                                        width: MySize.getWidth(140),
+                                        child: Center(
+                                          child: Text("Boost",
+                                              style: GoogleFonts.lemon(
+                                                  textStyle: TextStyle(
+                                                      color: Colors.grey.shade50,
+                                                      fontWeight: FontWeight.w500,
+                                                      fontSize:
+                                                          MySize.getHeight(20)))),
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ),
