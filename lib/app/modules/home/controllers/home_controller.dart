@@ -38,9 +38,7 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
   void onInit() {
     super.onInit();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-      if (!kDebugMode) {
-        await ads();
-      }
+      await ads();
       isPlaying = false;
       SoundGenerator.init(sampleRate);
       SoundGenerator.onIsPlayingChanged.listen((value) {
@@ -54,17 +52,15 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
       VolumeController().getVolume().then((volume) => _setVolumeValue = volume);
       Yodo1MAS.instance.setRewardListener((event, message) {
         if (message != "Reward Earned" || message != "Reward Closed") {
-          Future.delayed(Duration(seconds: 1)).then((value) {
-            SoundGenerator.stop();
-          });
+          SoundGenerator.stop();
         }
         print(message);
         switch (event) {
           case Yodo1MAS.AD_EVENT_OPENED:
             print('RewardVideo AD_EVENT_OPENED');
-            Future.delayed(Duration(seconds: 1)).then((value) {
-              SoundGenerator.stop();
-            });
+
+            SoundGenerator.stop();
+
             break;
           case Yodo1MAS.AD_EVENT_ERROR:
             print('RewardVideo AD_EVENT_ERROR' + message);
@@ -82,7 +78,7 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
             Get.back();
             if (on_Off.isTrue) {
               SoundGenerator.play();
-              // SoundGenerator.setFrequency(frequency.value);
+              SoundGenerator.setFrequency(frequency.value);
               print(SoundGenerator.getSampleRate);
               if (_volumeListenerValue <= 0.2) {
                 VolumeController().setVolume(1, showSystemUI: false);
@@ -97,7 +93,7 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
             Get.back();
             if (on_Off.isTrue) {
               SoundGenerator.play();
-              // SoundGenerator.setFrequency(frequency.value);
+              SoundGenerator.setFrequency(frequency.value);
               print(SoundGenerator.getSampleRate);
               if (_volumeListenerValue <= 0.2) {
                 VolumeController().setVolume(1, showSystemUI: false);
@@ -141,13 +137,16 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
     });
   }
 
-  startAnimation() async {
+  startSound() {
     if (_volumeListenerValue <= 0.2) {
       VolumeController().setVolume(1, showSystemUI: false);
     }
     SoundGenerator.setFrequency(frequency.value);
 
     SoundGenerator.play();
+  }
+
+  startAnimation() async {
     animationController = AnimationController(
       duration: Duration(milliseconds: speed.value),
       vsync: this,

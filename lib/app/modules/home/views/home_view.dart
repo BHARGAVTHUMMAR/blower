@@ -177,15 +177,12 @@ class HomeView extends GetWidget<HomeController> {
                                   }
                                   if (controller.on_Off.isTrue) {
                                     if (controller.isRotate.isTrue) {
-                                      if (!kDebugMode) {
-                                        controller.startAnimation();
-                                      } else {
-                                        await controller.ads().then(
-                                          (value) {
-                                            controller.startAnimation();
-                                          },
-                                        );
-                                      }
+                                      await controller.ads().then(
+                                        (value) {
+                                          controller.startSound();
+                                          controller.startAnimation();
+                                        },
+                                      );
                                     }
                                   } else {
                                     controller.disposeAnimation();
@@ -285,9 +282,7 @@ class HomeView extends GetWidget<HomeController> {
                                       SoundGenerator.setFrequency(
                                           controller.frequency.value);
                                     } else {
-                                      controller.ads().then((value) {
-                                        SoundGenerator.stop();
-                                      });
+                                      controller.ads().then((value) {});
                                     }
                                   },
                                   child: Container(
