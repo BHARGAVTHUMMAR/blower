@@ -13,7 +13,6 @@ import '../../../../main.dart';
 class HomeController extends GetxController with SingleGetTickerProviderMixin {
   RxBool on_Off = false.obs;
   RxBool isRotate = false.obs;
-  RxBool isTap = false.obs;
   RxBool isAnimationInit = false.obs;
   Rx<AnimationController>? animationController;
   Rx<AnimationController>? animationController1;
@@ -85,9 +84,7 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
         SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
         Get.back();
       } else {
-        Future.delayed(Duration(seconds: 5)).then((value) {
-          SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
-        });
+        SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
       }
     }).catchError((error) {
       print("Error := $error");
@@ -114,12 +111,18 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
   }
 
   disposeAnimation() {
-    animationController!.value.duration = Duration(seconds: 1);
+    // animationController!.value.stop();
+    animationController = AnimationController(
+      duration: Duration(milliseconds: 1500),
+      vsync: this,
+    ).obs;
     animationController!.value.forward(from: 0);
-    Future.delayed(Duration(seconds: 1)).then((value) {
-      animationController!.value.duration = Duration(seconds: 2);
-      animationController!.value.forward(from: 0);
-    });
+    // animationController!.value.duration = Duration(seconds: 1);
+    // animationController!.value.forward(from: 0);
+    // Future.delayed(Duration(seconds: 1)).then((value) {
+    //   animationController!.value.duration = Duration(seconds: 2);
+    //   animationController!.value.forward(from: 0);
+    // });
     isAnimationInit.value = true;
     SoundGenerator.stop();
   }

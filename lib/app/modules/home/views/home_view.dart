@@ -166,24 +166,23 @@ class HomeView extends GetWidget<HomeController> {
                             ),
                             Positioned(
                               child: GestureDetector(
-                                onTap: () async {
+                                onTap: () {
                                   controller.on_Off.value =
                                       !controller.on_Off.value;
-                                  controller.speed.value = 1000;
-                                  controller.isTap.value =
-                                      !controller.isTap.value;
+
                                   if (controller.on_Off.isTrue) {
+                                    controller.speed.value = 1000;
                                     controller.isRotate.value = true;
+                                  } else {
+                                    controller.isRotate.value = false;
                                   }
                                   if (controller.on_Off.isTrue) {
-                                    if (controller.isRotate.isTrue) {
-                                      await controller.ads().then(
-                                        (value) {
-                                          controller.startAnimation();
-                                          controller.startSound();
-                                        },
-                                      );
-                                    }
+                                    controller.ads().then(
+                                      (value) {
+                                        controller.startAnimation();
+                                        controller.startSound();
+                                      },
+                                    );
                                   } else {
                                     controller.disposeAnimation();
                                   }
@@ -320,13 +319,12 @@ class HomeView extends GetWidget<HomeController> {
                                                   controller.speed.value =
                                                       controller.speed.value -
                                                           50;
+                                                  Future.delayed(
+                                                          Duration(seconds: 1))
+                                                      .then((value) {
+                                                    controller.startAnimation();
+                                                  });
                                                 }
-                                                Future.delayed(
-                                                        Duration(seconds: 3))
-                                                    .then((value) {
-                                                  controller.startAnimation();
-                                                });
-
                                                 SoundGenerator.setFrequency(
                                                     controller.frequency.value);
                                               } else {
