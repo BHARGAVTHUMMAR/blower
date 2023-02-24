@@ -1,6 +1,5 @@
 import 'package:flutter/animation.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:sound_generator/sound_generator.dart';
@@ -9,9 +8,7 @@ import 'package:volume_controller/volume_controller.dart';
 import 'package:yodo1mas/Yodo1MAS.dart';
 
 import '../../../../constants/ad_service.dart';
-import '../../../../constants/timer_service.dart';
 import '../../../../main.dart';
-import '../../../routes/app_pages.dart';
 
 class HomeController extends GetxController with SingleGetTickerProviderMixin {
   RxBool on_Off = false.obs;
@@ -22,14 +19,13 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
   Rx<AnimationController>? animationController1;
   RxDouble slider = 75.0.obs;
   RxInt milliseconds = 0.obs;
-  double _volumeListenerValue = 0;
-  double _getVolume = 0;
-  double _setVolumeValue = 0;
+  double _volumeListenerValue = 0.0;
+  double _setVolumeValue = 0.0;
   bool isPlaying = false;
   RxDouble frequency = 540.0.obs;
   RxInt speed = 1000.obs;
-  double balance = 0;
-  double volume = 1;
+  double balance = 0.0;
+  double volume = 1.0;
   waveTypes waveType = waveTypes.SINUSOIDAL;
   int sampleRate = 44100;
   RxInt a = 1000.obs;
@@ -38,7 +34,7 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
   void onInit() {
     super.onInit();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-      await ads();
+      // await ads();
       isPlaying = false;
       SoundGenerator.init(sampleRate);
       SoundGenerator.onIsPlayingChanged.listen((value) {
@@ -54,18 +50,19 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
         switch (event) {
           case Yodo1MAS.AD_EVENT_OPENED:
             print('Interstitial AD_EVENT_OPENED');
-      SoundGenerator.stop();
+            SoundGenerator.stop();
             break;
           case Yodo1MAS.AD_EVENT_ERROR:
-      SoundGenerator.stop();
-      SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
-      Get.back();
-      break;
+            SoundGenerator.stop();
+            SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+            Get.back();
+            break;
           case Yodo1MAS.AD_EVENT_CLOSED:
             SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
             Get.back();
             if (on_Off.isTrue) {
               SoundGenerator.play();
+              animationController!.refresh();
               SoundGenerator.setFrequency(frequency.value);
               print(SoundGenerator.getSampleRate);
               if (_volumeListenerValue <= 0.2) {
@@ -97,7 +94,17 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
     });
   }
 
-  startAnimation() async {
+  startSound() {
+    if (_volumeListenerValue <= 0.2) {
+      VolumeController().setVolume(1, showSystemUI: false);
+    }
+    speed.value = 1000;
+    frequency.value = 540.0;
+    SoundGenerator.setFrequency(frequency.value);
+    SoundGenerator.play();
+  }
+
+  startAnimation() {
     animationController = AnimationController(
       duration: Duration(milliseconds: speed.value),
       vsync: this,
@@ -105,17 +112,8 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
     isAnimationInit.value = true;
     animationController!.value.repeat();
   }
-  startSound() {
-    if (_volumeListenerValue <= 0.2) {
-      VolumeController().setVolume(1, showSystemUI: false);
-    }speed.value = 1000;
-    frequency.value = 540.0;
-    SoundGenerator.setFrequency(frequency.value);
-    SoundGenerator.play();
-  }
 
   disposeAnimation() {
-    frequency.value = 540;
     animationController!.value.duration = Duration(seconds: 1);
     animationController!.value.forward(from: 0);
     Future.delayed(Duration(seconds: 1)).then((value) {
@@ -127,7 +125,7 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
   }
 
   setDragAnimation() {
-    double val = 0;
+    double val = 0.0;
     if (animationController1 != null) {
       val = animationController1!.value.value;
       print(val);
